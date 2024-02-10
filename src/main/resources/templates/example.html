@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>homepage</title>
+</head>
+<body>
+
+<!-- EXAMPLE -->
+<div class="container">
+  <h1>Welcome to the Homepage</h1>
+  <p>This is a demo of Thymeleaf and frontend framework injecting.</p>
+</div>
+
+<div id="hw"></div>
+<div id="hm"></div>
+<div id="hl"></div>
+
+<script th:src="@{/webjars/react/18.1.0/umd/react.production.min.js}"></script>
+<script th:src="@{/webjars/react-dom/18.1.0/umd/react-dom.production.min.js}"></script>
+<script th:src="@{components.js}"></script>
+
+<script th:inline="javascript">
+  /*<!-- This is a Nav/Footer type -->*/
+  const HelloWorld = new components.HelloWorld();
+  ReactDOM.render(HelloWorld, document.getElementById('hw'));
+
+  /*<!-- Different message depending on the msg -->*/
+  const msg = /*[[${message}]]*/ 'default name';
+  const HelloMessage = new components.HelloMessage(msg);
+  ReactDOM.render(HelloMessage, document.getElementById('hm'));
+
+  /*<!-- List type thing -->*/
+  const ships = /*[[${data}]]*/ [];
+  console.log('ships', ships)
+  const HelloList = new components.HelloList(ships);
+  ReactDOM.render(HelloList, document.getElementById('hl'));
+</script>
+</body>
+</html>
