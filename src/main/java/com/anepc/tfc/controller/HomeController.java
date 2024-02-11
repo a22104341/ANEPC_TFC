@@ -10,28 +10,28 @@ import java.util.ArrayList;
 public class HomeController {
 
     @GetMapping("/login")
-    public String getLoginPage(Model model){
+    public String loginPage(Model model){
 
         model.addAttribute("page", "Iniciar Sessão");
 
         return "login";
     }
     @GetMapping("/criar_cto")
-    public String getCriarCtoPage(Model model){
+    public String criarCtoPage(Model model){
 
         model.addAttribute("page", "Criar CTO");
 
         return "ctoForm";
     }
     @GetMapping("/ctos")
-    public String getCtosPage(Model model){
+    public String ctosPage(Model model){
 
         model.addAttribute("page", "CTO's");
 
         return "ctos";
     }
     @GetMapping("/estatisticas")
-    public String getStatisticsPage(Model model){
+    public String statisticsPage(Model model){
 
         model.addAttribute("page", "Consultar Estatísticas");
 
