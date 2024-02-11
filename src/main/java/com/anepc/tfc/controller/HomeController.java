@@ -39,7 +39,23 @@ public class HomeController {
     }
 
 
+    // TEST
+    @GetMapping("/TEST")
+    public String getTest(Model model){
+        return pageAdder(model, "Tests");
+    }
 
+    public String pageAdder(Model model, String page){
+        switch (page){
+            case "login":
+                model.addAttribute("page", "login!");
+                break;
+            case "Tests":
+                model.addAttribute("page", "TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT!!!!!! Controller");
+                break;
+        }
+        return page;
+    }
     // EXAMPLE
     @GetMapping("/xmpls")
     public String getXmpl(Model model){
