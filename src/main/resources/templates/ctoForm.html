@@ -10,7 +10,10 @@
 
 
 <div class="container">
-  <div id="nav"></div>
+  <div th:with="replaceTHIS='Criar CTO'">
+    <!-- Include navigation Bar fragment -->
+    <div th:replace="navBar :: navBar"></div>
+  </div>
   <p>CTO Form page</p>
 </div>
 
@@ -19,10 +22,7 @@
 <script th:src="@{components.js}"></script>
 
 <script th:inline="javascript">
-  /*<!-- Different message depending on the msg -->*/
-  const page = /*[[${page}]]*/ 'Page';
-  const NavigationBar = new components.NavigationBar(page);
-  ReactDOM.render(NavigationBar, document.getElementById('nav'));
+
 </script>
 
 </body>

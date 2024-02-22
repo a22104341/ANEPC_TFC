@@ -11,51 +11,29 @@ public class HomeController {
 
     @GetMapping("/login")
     public String loginPage(Model model){
-
-        model.addAttribute("page", "Iniciar Sessão");
-
         return "login";
     }
     @GetMapping("/criar_cto")
     public String criarCtoPage(Model model){
-
-        model.addAttribute("page", "Criar CTO");
-
         return "ctoForm";
     }
     @GetMapping("/ctos")
     public String ctosPage(Model model){
-
-        model.addAttribute("page", "CTO's");
-
         return "ctos";
     }
     @GetMapping("/estatisticas")
     public String statisticsPage(Model model){
-
-        model.addAttribute("page", "Consultar Estatísticas");
-
         return "statistics";
     }
 
 
+
     // TEST
     @GetMapping("/TEST")
-    public String getTest(Model model){
-        return pageAdder(model, "Tests");
+    public String tests2(Model model){
+        return "Tests";
     }
 
-    public String pageAdder(Model model, String page){
-        switch (page){
-            case "login":
-                model.addAttribute("page", "login!");
-                break;
-            case "Tests":
-                model.addAttribute("page", "TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT!!!!!! Controller");
-                break;
-        }
-        return page;
-    }
     // EXAMPLE
     @GetMapping("/xmpls")
     public String getXmpl(Model model){

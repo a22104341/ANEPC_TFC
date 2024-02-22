@@ -10,7 +10,10 @@
 
 
 <div class="container">
-  <div id="nav"></div>
+  <div th:with="replaceTHIS='Consultar Estatísticas'">
+    <!-- Include navigation Bar fragment -->
+    <div th:replace="navBar :: navBar"></div>
+  </div>
   <p>Statistic's page</p>
 </div>
 
