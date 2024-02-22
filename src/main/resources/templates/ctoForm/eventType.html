@@ -1,5 +1,7 @@
-<div xmlns:th="http://www.thymeleaf.org" th:fragment="diops">
-    <div id="navigationBarTOP">
-
-    </div>
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="eventTypeDropDown">
+    <!-- This function will load a specific HTML, based on which option was chosen onto the other html -->
+    <select id="eventTypeSelector" onchange="loadSelectedFragment()">
+        <option value="meteorologiaAdversa">Meteorologia Adversa</option>
+        <option value="other">Other</option>
+    </select>
 </div>

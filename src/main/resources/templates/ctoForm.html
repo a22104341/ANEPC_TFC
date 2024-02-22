@@ -12,9 +12,23 @@
 <div class="container">
   <div th:with="replaceTHIS='Criar CTO'">
     <!-- Include navigation Bar fragment -->
-    <div th:replace="navBar :: navBar"></div>
+    <div th:replace="~{navBar :: navBar}"></div>
   </div>
+
   <p>CTO Form page</p>
+
+  <!-- Add a dropdown with all the options -->
+  <!-- All except DECIR, call eventType -->
+  <!-- eventType, calls either 1.other or 2.metereologiaAdversa -->
+  <!-- 2. calls evolucaoE -->
+  <!--  DIOPS
+        DECIR
+        DIONRBQ
+        DIRACAERO
+        Especial -->
+
+  <div th:replace="~{ctoForm/meteorologiaAdversa :: meteorologiaAdversa}"></div> <!-- This is just a test, to see if it gets displayed properly (DELETE) -->
+
 </div>
 
 <script th:src="@{/webjars/react/18.1.0/umd/react.production.min.js}"></script>

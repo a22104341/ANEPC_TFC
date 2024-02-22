@@ -1,0 +1,20 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="meteorologiaAdversa">
+  <div>
+    meteor
+    <!-- Multiple choice, + 1 textbox -->
+    <!--  Chuva
+          Neve
+          Granizo
+          Vento
+          Frio
+          Calor
+          Nevoeiro
+          Trovoada
+          Agitação Marítima
+          Text Box (OTHER)-->
+
+    <!-- Call evolucaoEAE.html!! -->
+    <div th:replace="~{ctoForm/evolucaoEAE :: evolucaoEAE}"></div>
+
+  </div>
+</div>
