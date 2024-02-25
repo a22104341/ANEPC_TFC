@@ -18,5 +18,7 @@ public class Cto_Denied {
     @Column(name = "feedback", nullable = false, length = 500)
     private String feedback;
 
-    /* FK missing */
+    /* Foreign Keys */
+    @OneToOne
+    private Cto_History cto_history_ID;
 }

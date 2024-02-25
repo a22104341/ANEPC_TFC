@@ -12,7 +12,7 @@ public class Profile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private int id;
+    private short id;
 
 
     @Column(name = "name", nullable = false, length = 50)

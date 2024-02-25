@@ -21,5 +21,7 @@ public class Cto_Data {
     @Column(name = "field_data", nullable = false)
     private String field_data;
 
-    /* FK missing */
+    /* Foreign Keys */
+    @OneToOne
+    private Cto_History cto_history_ID;
 }

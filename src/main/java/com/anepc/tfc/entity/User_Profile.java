@@ -14,11 +14,11 @@ public class User_Profile {
     @Column(name = "id", nullable = false)
     private int user_profile_ID;
 
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    /* Foreign Keys */
+    @OneToOne
     private User user_ID;
 
-    /* My brain is fried with these FK's
-    private Profile profile_id;*/
+    @OneToOne
+    private Profile profile_ID;
+
 }

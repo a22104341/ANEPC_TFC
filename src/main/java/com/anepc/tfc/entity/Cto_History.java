@@ -24,5 +24,11 @@ public class Cto_History {
     @Temporal(TemporalType.TIMESTAMP)
     private Date date_creation;
 
-    /* 2 FK missing */
+    /* Foreign Keys */
+    @OneToOne
+    private User user_ID;
+
+    @OneToOne
+    private User cto_ID;
+
 }
