@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Form} from 'react-bootstrap';
 
 function DispositivoDropDown() {
+
     const [selectedOption, setSelectedOption] = useState('');
     const [selectedConditions, setSelectedConditions] = useState([]); // MultipleChoice
     const [otherInput, setOtherInput] = useState(''); // Other in multipleChoice
@@ -45,6 +46,7 @@ function DispositivoDropDown() {
 
     return (
         <Form id="form_Page1" onSubmit={handleSubmit}>
+            <div>JohnDoe</div>
             <Form.Group controlId="formDispositivo">
                 <Form.Label>Select an option</Form.Label>
                 <Form.Control as="select" onChange={handleDropdownChange}>
@@ -92,7 +94,6 @@ function DispositivoDropDown() {
                         <option value="Agitação Marítima">Agitação Marítima</option>
                         <option value="Other">Outro</option>
                     </Form.Control>
-                    <!-- Unsure if this works but if it does it would be good :D -->
                     {selectedConditions.includes('Other') && (
                         <Form.Control
                             type="text"
@@ -105,12 +106,13 @@ function DispositivoDropDown() {
             </div>
 
             <div id="evolucaoEAE" className={selectedOption === 'Outro' ? 'd-block' : 'd-none'}>
-                {/* Content for DIRACAERO or Especial */}
+                {/* Content for DIRACAERO or Especial */}/*
             </div>
 
 
             <button type="submit">Submit</button>
         </Form>
+
     );
 }
 

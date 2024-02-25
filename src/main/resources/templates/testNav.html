@@ -1,11 +1,9 @@
 <div xmlns:th="http://www.thymeleaf.org" th:fragment="testNav">
-    <div id="navigationBarTOP">
-        <p><a href="/criar_cto">Criar CTO</a></p>
-        <p><a href="/ctos">CTOs</a></p>
-        <p><a href="/estatisticas">Consultar Estatísticas</a></p>
-    </div>
-    <div id="navigationBarBOT">
-        <p th:text="${replaceTHIS}">Dynamic Text Placeholder</p>
-        <p><a href="/login">Logout</a></p>
-    </div>
+
+    <div id="yes"></div>
+
+    <script th:inline="javascriptForm">
+        const HelloWorld = new components.HelloWorld();
+        ReactDOM.render(HelloWorld, document.getElementById('yes'));
+    </script>
 </div>
