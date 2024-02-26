@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Form} from 'react-bootstrap';
 
 function DispositivoDropDown_TEST() {
-
+    //WARNING id="fenomenoMeteorologico" AND id="other":The order of Outro/MeteorologiaAdversa and DECIR are IMPORTANT, if u change the order it stops working :D -> IF the 1st one is YES it skips the 2nd condition, ELSE it reads the second condition
     const [selectedOption, setSelectedOption] = useState('');
     const [selectedConditions, setSelectedConditions] = useState([]); // MultipleChoice
     const [otherInput, setOtherInput] = useState(''); // Other in multipleChoice
@@ -14,23 +14,17 @@ function DispositivoDropDown_TEST() {
 
     // MultipleChoice
     const handleConditionsChange = (event) => {
-        const { options } = event.target;
-        const selectedConditions = Array.from(options)
-            .filter(option => option.selected)
-            .map(option => option.value);
-        setSelectedConditions(selectedConditions);
+        const { value, checked } = event.target;
+        if (checked) {
+            setSelectedConditions(prevSelected => [...prevSelected, value]);
+        } else {
+            setSelectedConditions(prevSelected => prevSelected.filter(condition => condition !== value));
+        }
     };
 
     //Other in MultipleChoice
     const handleOtherInputChange = (event) => {
-        const { value } = event.target;
-        setOtherInput(value);
-        // Automatically select the "Other" option when input is provided
-        if (value.trim() !== '' && !selectedConditions.includes('Other')) {
-            setSelectedConditions([...selectedConditions, 'Other']);
-        } else if (value.trim() === '' && selectedConditions.includes('Other')) {
-            setSelectedConditions(selectedConditions.filter(condition => condition !== 'Other'));
-        }
+
     };
 
     //save stuff on submit
@@ -67,7 +61,7 @@ function DispositivoDropDown_TEST() {
                 </Form.Group>
             </div>
 
-            <div id="other" className={selectedOption !== 'DECIR' || selectedOption !== 'MeteorologiaAdversa' ? 'd-block' : 'd-none'}>
+            <div id="other" className={selectedOption === 'MeteorologiaAdversa' || selectedOption === 'DECIR' ? 'd-none' : 'd-block'}>
                 <Form.Group controlId="otherTextField">
                     <Form.Label>Other:</Form.Label>
                     <Form.Control
@@ -78,34 +72,26 @@ function DispositivoDropDown_TEST() {
                 </Form.Group>
             </div>
 
-            <div id="fenomenoMeteorologico" className={selectedOption !== 'DECIR' || selectedOption !== 'Outro'? 'd-block' : 'd-none'}>
+            <div id="fenomenoMeteorologico" className={selectedOption === 'Outro' || selectedOption === 'DECIR' ? 'd-none' : 'd-block'}>
                 <Form.Group controlId="formConditions">
                     <Form.Label>Select meteorological conditions</Form.Label>
-                    <Form.Control as="select" multiple onChange={handleConditionsChange}>
-                        <option value="Chuva">Chuva</option>
-                        <option value="Neve">Neve</option>
-                        <option value="Granizo">Granizo</option>
-                        <option value="Vento">Vento</option>
-                        <option value="Frio">Frio</option>
-                        <option value="Calor">Calor</option>
-                        <option value="Nevoeiro">Nevoeiro</option>
-                        <option value="Trovoada">Trovoada</option>
-                        <option value="Agitação Marítima">Agitação Marítima</option>
-                        <option value="Other">Outro</option>
-                    </Form.Control>
-                    {selectedConditions.includes('Other') && (
-                        <Form.Control
-                            type="text"
-                            placeholder="Outro"
-                            value={otherInput}
-                            onChange={handleOtherInputChange}
+                    {['Chuva', 'Neve', 'Granizo', 'Vento', 'Frio', 'Calor', 'Nevoeiro', 'Trovoada', 'Agitação Marítima', 'Other'].map((condition, index) => (
+                        <Form.Check
+                            key={index}
+                            type="checkbox"
+                            id={`condition-${index}`}
+                            label={condition}
+                            value={condition}
+                            onChange={handleConditionsChange}
+                            checked={selectedConditions.includes(condition)}
                         />
-                    )}
+                    ))}
                 </Form.Group>
             </div>
 
             <div id="evolucaoEAE" className={selectedOption !== 'Outro' ? 'd-block' : 'd-none'}>
-                {/* Content for DIRACAERO or Especial */}/*
+                {/* Content for DIRACAERO or Especial */}
+                evolucaoEAE
             </div>
 
 
