@@ -7,3 +7,4 @@ export { default as HelloList } from './components/Examples/HelloList';
 import 'bootstrap/dist/css/bootstrap.css';
 
 export { default as DispositivoDropDown } from './components/DispositivoDropDown';
+export { default as DispositivoDropDown_TEST } from './components/DispositivoDropDown_TEST';
