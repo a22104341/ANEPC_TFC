@@ -12,8 +12,6 @@
     <!-- <div th:replace="testNav :: testNav"></div> This here would load the testNav.html which should render the HelloWorld().js-->
 </div>
 
-<div id="hw"></div>
-<br>
 <div id="dispositivo"></div>
 
 <p>Tests page</p>
@@ -31,8 +29,6 @@
     const { createRoot } = ReactDOM;
 
     // Render your components using createRoot
-    const HelloWorldRoot = createRoot(document.getElementById('hw'));
-    HelloWorldRoot.render(React.createElement(components.HelloWorld));
 
     const DispositivoDropDownRoot = createRoot(document.getElementById('dispositivo'));
     DispositivoDropDownRoot.render(React.createElement(components.DispositivoDropDown_TEST));
