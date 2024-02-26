@@ -3,6 +3,7 @@ import {Form} from 'react-bootstrap';
 
 function DispositivoDropDown_TEST() {
     //WARNING id="fenomenoMeteorologico" AND id="other":The order of Outro/MeteorologiaAdversa and DECIR are IMPORTANT, if u change the order it stops working :D -> IF the 1st one is YES it skips the 2nd condition, ELSE it reads the second condition
+    //If you want to DeJANK-ify it, you can create another variable for the id="other" field and use it instead :D
     const [selectedOption, setSelectedOption] = useState('');
     const [selectedConditions, setSelectedConditions] = useState([]); // MultipleChoice
     const [otherInput, setOtherInput] = useState(''); // Other in multipleChoice
