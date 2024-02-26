@@ -2,6 +2,15 @@ import React, {useState} from 'react';
 import {Form} from 'react-bootstrap';
 
 function DispositivoDropDown_TEST() {
+
+    /* A way of making the items you don't want to start off by being invisible, would be by putting: selectedDispositivo === ''
+    -> this makes part of the other conditions not work anymore, because max. conditions with the correct order is 2.
+
+     Order needs to be maintained, because IF 1st one is false, check 2nd one ELSE run first without checking 2nd.
+     BUT IF 2nd also false, ignore 3rd :D
+
+     Need to find a way, to start them all as being invisible on render (except the one i want) */
+
     const [selectedDispositivo, setSelectedDispositivo] = useState('');
     const [selectedEvent, setSelectedEvent] = useState('');
     const [selectedConditions, setSelectedConditions] = useState([]); // MultipleChoice
@@ -11,7 +20,7 @@ function DispositivoDropDown_TEST() {
     const handleDropdownChange_dispositivo = (event) => {
         setSelectedDispositivo(event.target.value);
         /* This is a way of fixing the evolucaoEAE disappearing "DIOPS->Outro->DECIR" but when you go "->DIOPS" after this, the event still says Outro*/
-        setSelectedEvent('MeteorologiaAdversa');
+        //setSelectedEvent('MeteorologiaAdversa');
     };
 
     const handleDropdownChange_event = (event) => {
@@ -59,7 +68,7 @@ function DispositivoDropDown_TEST() {
                 </Form.Control>
             </Form.Group>
 
-            <div id="eventType" className={selectedDispositivo !== 'DECIR' ? 'd-block' : 'd-none'}>
+            <div id="eventType" className={selectedDispositivo === 'DECIR' ? 'd-none' : 'd-block'}>
                 <Form.Group controlId="formEventType">
                     <Form.Label>Select an EventType</Form.Label>
                     <Form.Control as="select" onChange={handleDropdownChange_event}>
@@ -70,7 +79,7 @@ function DispositivoDropDown_TEST() {
                 </Form.Group>
             </div>
 
-            <div id="other" className={selectedEvent === 'MeteorologiaAdversa' || selectedDispositivo === 'DECIR' ? 'd-none' : 'd-block'}>
+            <div id="other" className={selectedDispositivo === 'DECIR' || selectedEvent === 'MeteorologiaAdversa' ? 'd-none' : 'd-block'}>
                 <Form.Group controlId="otherTextField">
                     <Form.Label>Other:</Form.Label>
                     <Form.Control
@@ -81,7 +90,7 @@ function DispositivoDropDown_TEST() {
                 </Form.Group>
             </div>
 
-            <div id="fenomenoMeteorologico" className={selectedEvent === 'Outro' || selectedDispositivo === 'DECIR' ? 'd-none' : 'd-block'}>
+            <div id="fenomenoMeteorologico" className={selectedDispositivo === 'DECIR' || selectedEvent === 'Outro' ? 'd-none' : 'd-block'}>
                 <Form.Group controlId="formConditions">
                     <Form.Label>Select meteorological conditions</Form.Label>
                     {['Chuva', 'Neve', 'Granizo', 'Vento', 'Frio', 'Calor', 'Nevoeiro', 'Trovoada', 'Agitação Marítima', 'Other'].map((condition, index) => (
@@ -98,7 +107,7 @@ function DispositivoDropDown_TEST() {
                 </Form.Group>
             </div>
 
-            <div id="evolucaoEAE" className={selectedEvent !== 'Outro' ? 'd-block' : 'd-none'}>
+            <div id="evolucaoEAE" className={selectedEvent === 'Outro' ? 'd-none' : 'd-block'}>
                 {/* Content for DIRACAERO or Especial */}
                 evolucaoEAE
             </div>
