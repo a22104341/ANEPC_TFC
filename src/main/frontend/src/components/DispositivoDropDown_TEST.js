@@ -3,13 +3,20 @@ import {Form} from 'react-bootstrap';
 
 function DispositivoDropDown_TEST() {
 
-    /* A way of making the items you don't want to start off by being invisible, would be by putting: selectedDispositivo === ''
+    /*
+
+    A way of making the items you don't want to start off by being invisible, would be by putting: selectedDispositivo === ''
     -> this makes part of the other conditions not work anymore, because max. conditions with the correct order is 2.
 
      Order needs to be maintained, because IF 1st one is false, check 2nd one ELSE run first without checking 2nd.
      BUT IF 2nd also false, ignore 3rd :D
 
-     Need to find a way, to start them all as being invisible on render (except the one i want) */
+     Need to find a way, to start them all as being invisible on render (except the one i want)
+
+     + The Textfield doesn't let me write
+     + The Outro option in the Multiple choice, isn't a textfield that autoselects the CheckBox
+
+     */
 
     const [selectedDispositivo, setSelectedDispositivo] = useState('');
     const [selectedEvent, setSelectedEvent] = useState('');
