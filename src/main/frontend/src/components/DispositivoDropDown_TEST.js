@@ -2,15 +2,20 @@ import React, {useState} from 'react';
 import {Form} from 'react-bootstrap';
 
 function DispositivoDropDown_TEST() {
-    //WARNING id="fenomenoMeteorologico" AND id="other":The order of Outro/MeteorologiaAdversa and DECIR are IMPORTANT, if u change the order it stops working :D -> IF the 1st one is YES it skips the 2nd condition, ELSE it reads the second condition
-    //If you want to DeJANK-ify it, you can create another variable for the id="other" field and use it instead :D
-    const [selectedOption, setSelectedOption] = useState('');
+    const [selectedDispositivo, setSelectedDispositivo] = useState('');
+    const [selectedEvent, setSelectedEvent] = useState('');
     const [selectedConditions, setSelectedConditions] = useState([]); // MultipleChoice
     const [otherInput, setOtherInput] = useState(''); // Other in multipleChoice
     const [other, setOther] = useState(''); //Normal Other
 
-    const handleDropdownChange = (event) => {
-        setSelectedOption(event.target.value);
+    const handleDropdownChange_dispositivo = (event) => {
+        setSelectedDispositivo(event.target.value);
+        /* This is a way of fixing the evolucaoEAE disappearing "DIOPS->Outro->DECIR" but when you go "->DIOPS" after this, the event still says Outro*/
+        setSelectedEvent('MeteorologiaAdversa');
+    };
+
+    const handleDropdownChange_event = (event) => {
+        setSelectedEvent(event.target.value);
     };
 
     // MultipleChoice
@@ -33,7 +38,8 @@ function DispositivoDropDown_TEST() {
         event.preventDefault();
         // Handle form submission here
         const formData = {
-            selectedOption,
+            selectedDispositivo,
+            selectedEvent,
             selectedConditions
         };
         console.log(formData); // Example: You can send this data to an API or save it to the state
@@ -43,7 +49,8 @@ function DispositivoDropDown_TEST() {
         <Form id="form_Page1" onSubmit={handleSubmit}>
             <Form.Group controlId="formDispositivo">
                 <Form.Label>Select an option</Form.Label>
-                <Form.Control as="select" onChange={handleDropdownChange}>
+                <Form.Control as="select" onChange={handleDropdownChange_dispositivo}>
+                    <option value="">Escolha uma Opção</option>
                     <option value="DIOPS">DIOPS</option>
                     <option value="DECIR">DECIR</option>
                     <option value="DIONRBQ">DIONRBQ</option>
@@ -52,17 +59,18 @@ function DispositivoDropDown_TEST() {
                 </Form.Control>
             </Form.Group>
 
-            <div id="eventType" className={selectedOption !== 'DECIR' ? 'd-block' : 'd-none'}>
+            <div id="eventType" className={selectedDispositivo !== 'DECIR' ? 'd-block' : 'd-none'}>
                 <Form.Group controlId="formEventType">
                     <Form.Label>Select an EventType</Form.Label>
-                    <Form.Control as="select" onChange={handleDropdownChange}>
+                    <Form.Control as="select" onChange={handleDropdownChange_event}>
+                        <option value="">Escolha uma Opção</option>
                         <option value="MeteorologiaAdversa">Meteorologia Adversa</option>
                         <option value="Outro">Outro</option>
                     </Form.Control>
                 </Form.Group>
             </div>
 
-            <div id="other" className={selectedOption === 'MeteorologiaAdversa' || selectedOption === 'DECIR' ? 'd-none' : 'd-block'}>
+            <div id="other" className={selectedEvent === 'MeteorologiaAdversa' || selectedDispositivo === 'DECIR' ? 'd-none' : 'd-block'}>
                 <Form.Group controlId="otherTextField">
                     <Form.Label>Other:</Form.Label>
                     <Form.Control
@@ -73,7 +81,7 @@ function DispositivoDropDown_TEST() {
                 </Form.Group>
             </div>
 
-            <div id="fenomenoMeteorologico" className={selectedOption === 'Outro' || selectedOption === 'DECIR' ? 'd-none' : 'd-block'}>
+            <div id="fenomenoMeteorologico" className={selectedEvent === 'Outro' || selectedDispositivo === 'DECIR' ? 'd-none' : 'd-block'}>
                 <Form.Group controlId="formConditions">
                     <Form.Label>Select meteorological conditions</Form.Label>
                     {['Chuva', 'Neve', 'Granizo', 'Vento', 'Frio', 'Calor', 'Nevoeiro', 'Trovoada', 'Agitação Marítima', 'Other'].map((condition, index) => (
@@ -90,7 +98,7 @@ function DispositivoDropDown_TEST() {
                 </Form.Group>
             </div>
 
-            <div id="evolucaoEAE" className={selectedOption !== 'Outro' ? 'd-block' : 'd-none'}>
+            <div id="evolucaoEAE" className={selectedEvent !== 'Outro' ? 'd-block' : 'd-none'}>
                 {/* Content for DIRACAERO or Especial */}
                 evolucaoEAE
             </div>
