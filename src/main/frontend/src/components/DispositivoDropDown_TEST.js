@@ -5,16 +5,22 @@ function DispositivoDropDown_TEST() {
 
     /*
 
-     + The Outro option in the Multiple choice, isn't a textfield that autoselects the CheckBox
+     + DIOPS -> Meteor -> Escolha uma Opcao(dispositivo) -> evolucaoEAE still shows up, can't fix it :D
+     + When i go back to DIOPS or sth, events says "Escolha uma Opcao", but it shows as if i picked meteorologico
+
+     +The Outro box, in the Multiple Choice, doesn't autoselect itself when length of text inside > 0, and it
+     +If you click on the select button again, it resaves into the Array AGAIN
+     +If you write in it and change EventType -> Outro the field keeps the text, that you wrote in outro, as if it's the same textfield
 
      */
 
     const [selectedDispositivo, setSelectedDispositivo] = useState('');
     const [selectedEvent, setSelectedEvent] = useState('');
-    const [selectedConditions, setSelectedConditions] = useState([]); // MultipleChoice
     const [otherInput, setOtherInput] = useState(''); // Other in multipleChoice
+    const [selectedConditions, setSelectedConditions] = useState([]); // MultipleChoice
+    const [selectedEAE, setselectedEAE] = useState([]); // EAE
 
-    const [other, setOther] = useState(''); //Normal Other
+
     const [showEventType, setShowEventType] = useState(false); // Initial state for eventType
     const [showOther, setShowOther] = useState(false); // Initial state for other
     const [showFenomenoMeteorologico, setShowFenomenoMeteorologico] = useState(false); // Initial state for fenomenoMeteorologico
@@ -50,10 +56,15 @@ function DispositivoDropDown_TEST() {
         }
     };
 
-    //Other in MultipleChoice
-    const handleOtherInputChange = (event) => {
-
+    const handleEAEChange = (event) => {
+        const {value, checked} = event.target;
+        if (checked) {
+            setselectedEAE(prevSelected => [...prevSelected, value]);
+        } else {
+            setselectedEAE(prevSelected => prevSelected.filter(selectedEAE => selectedEAE !== value));
+        }
     };
+
 
     //save stuff on submit
     const handleSubmit = (event) => {
@@ -61,7 +72,8 @@ function DispositivoDropDown_TEST() {
         // Handle form submission here
         let formData = {
             selectedDispositivo,
-            selectedEvent
+            selectedEvent,
+            selectedEAE
         };
 
         if (selectedEvent === 'MeteorologiaAdversa') {
@@ -115,26 +127,50 @@ function DispositivoDropDown_TEST() {
                 </Form.Group>
             </div>}
 
-            {showFenomenoMeteorologico && <div id="fenomenoMeteorologico">
+            {showFenomenoMeteorologico && (
+                <div id="fenomenoMeteorologico">
+                    <Form.Group controlId="formConditions">
+                        <Form.Label>Select meteorological conditions</Form.Label>
+                        {['Chuva', 'Neve', 'Granizo', 'Vento', 'Frio', 'Calor', 'Nevoeiro', 'Trovoada', 'Agitação Marítima', 'Other'].map((condition, index) => (
+                            <Form.Check
+                                key={index}
+                                type="checkbox"
+                                id={`condition-${index}`}
+                                label={condition === 'Other' ? (
+                                    <div>
+                                        <input
+                                            type="text"
+                                            placeholder="Outro"
+                                            value={selectedConditions}
+                                            onChange={(e) => setSelectedConditions(e.target.value)}
+                                        />
+                                    </div>
+                                ) : condition}
+                                value={condition === 'Other' ? otherInput : condition}
+                                onChange={handleConditionsChange}
+                                checked={selectedConditions.includes(condition)}
+                            />
+                        ))}
+                    </Form.Group>
+                </div>
+            )}
+
+
+            {showEvolucaoEAE && <div id="evolucaoEAE">
                 <Form.Group controlId="formConditions">
-                    <Form.Label>Select meteorological conditions</Form.Label>
-                    {['Chuva', 'Neve', 'Granizo', 'Vento', 'Frio', 'Calor', 'Nevoeiro', 'Trovoada', 'Agitação Marítima', 'Other'].map((condition, index) => (
+                    <Form.Label>Select evolucao EAE</Form.Label>
+                    {['Agravamento', 'Manutenção', 'Desagravamento'].map((eae, index) => (
                         <Form.Check
                             key={index}
                             type="checkbox"
-                            id={`condition-${index}`}
-                            label={condition}
-                            value={condition}
-                            onChange={handleConditionsChange}
-                            checked={selectedConditions.includes(condition)}
+                            id={`eae-${index}`}
+                            label={eae}
+                            value={eae}
+                            onChange={handleEAEChange}
+                            checked={selectedEAE.includes(eae)}
                         />
                     ))}
                 </Form.Group>
-            </div>}
-
-            {showEvolucaoEAE && <div id="evolucaoEAE">
-                {/* Content for DIRACAERO or Especial */}
-                evolucaoEAE
             </div>}
 
             <button type="submit">Submit</button>
