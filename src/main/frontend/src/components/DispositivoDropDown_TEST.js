@@ -5,15 +5,6 @@ function DispositivoDropDown_TEST() {
 
     /*
 
-    A way of making the items you don't want to start off by being invisible, would be by putting: selectedDispositivo === ''
-    -> this makes part of the other conditions not work anymore, because max. conditions with the correct order is 2.
-
-     Order needs to be maintained, because IF 1st one is false, check 2nd one ELSE run first without checking 2nd.
-     BUT IF 2nd also false, ignore 3rd :D
-
-     Need to find a way, to start them all as being invisible on render (except the one i want)
-
-     + The Textfield doesn't let me write
      + The Outro option in the Multiple choice, isn't a textfield that autoselects the CheckBox
 
      */
@@ -22,16 +13,28 @@ function DispositivoDropDown_TEST() {
     const [selectedEvent, setSelectedEvent] = useState('');
     const [selectedConditions, setSelectedConditions] = useState([]); // MultipleChoice
     const [otherInput, setOtherInput] = useState(''); // Other in multipleChoice
+
     const [other, setOther] = useState(''); //Normal Other
+    const [showEventType, setShowEventType] = useState(false); // Initial state for eventType
+    const [showOther, setShowOther] = useState(false); // Initial state for other
+    const [showFenomenoMeteorologico, setShowFenomenoMeteorologico] = useState(false); // Initial state for fenomenoMeteorologico
+    const [showEvolucaoEAE, setShowEvolucaoEAE] = useState(false); // Initial state for evolucaoEAE
 
     const handleDropdownChange_dispositivo = (event) => {
-        setSelectedDispositivo(event.target.value);
-        /* This is a way of fixing the evolucaoEAE disappearing "DIOPS->Outro->DECIR" but when you go "->DIOPS" after this, the event still says Outro*/
-        //setSelectedEvent('MeteorologiaAdversa');
+        let thisDispositivo = event.target.value;
+        setSelectedDispositivo(thisDispositivo);
+        setShowEventType(!(thisDispositivo === 'DECIR' || thisDispositivo === ''));
+        setShowOther(!(thisDispositivo === 'DECIR' || thisDispositivo === '') && !(selectedEvent === 'MeteorologiaAdversa' || selectedEvent === ''));
+        setShowFenomenoMeteorologico(!(thisDispositivo === 'DECIR' || thisDispositivo === '') && !(selectedEvent === 'Outro' || selectedEvent === ''));
+        setShowEvolucaoEAE(thisDispositivo === 'DECIR' ||!(thisDispositivo === '' || selectedEvent === 'Outro'));
     };
 
     const handleDropdownChange_event = (event) => {
-        setSelectedEvent(event.target.value);
+        let thisEvent = event.target.value;
+        setSelectedEvent(thisEvent);
+        setShowOther(!(selectedDispositivo === 'DECIR' || selectedDispositivo === '') && !(thisEvent === 'MeteorologiaAdversa' || thisEvent === ''));
+        setShowFenomenoMeteorologico(!(selectedDispositivo === 'DECIR' || selectedDispositivo === '') && !(thisEvent === 'Outro' || thisEvent === ''));
+        setShowEvolucaoEAE(selectedDispositivo === 'DECIR' || !(thisEvent === 'Outro'|| thisEvent === ''));
     };
 
     // MultipleChoice
@@ -53,11 +56,24 @@ function DispositivoDropDown_TEST() {
     const handleSubmit = (event) => {
         event.preventDefault();
         // Handle form submission here
-        const formData = {
+        let formData = {
             selectedDispositivo,
-            selectedEvent,
-            selectedConditions
+            selectedEvent
         };
+
+        if(selectedEvent ==='MeteorologiaAdversa'){
+            formData = {
+                ...formData,
+                selectedConditions
+            }
+        }
+        else
+        {
+            formData = {
+                ...formData,
+                otherInput
+            }
+        }
         console.log(formData); // Example: You can send this data to an API or save it to the state
     };
 
@@ -75,7 +91,7 @@ function DispositivoDropDown_TEST() {
                 </Form.Control>
             </Form.Group>
 
-            <div id="eventType" className={selectedDispositivo === 'DECIR' ? 'd-none' : 'd-block'}>
+            <div id="eventType" className={showEventType ? 'd-block' : 'd-none'}>
                 <Form.Group controlId="formEventType">
                     <Form.Label>Select an EventType</Form.Label>
                     <Form.Control as="select" onChange={handleDropdownChange_event}>
@@ -86,18 +102,19 @@ function DispositivoDropDown_TEST() {
                 </Form.Group>
             </div>
 
-            <div id="other" className={selectedDispositivo === 'DECIR' || selectedEvent === 'MeteorologiaAdversa' ? 'd-none' : 'd-block'}>
+            <div id="other" className={showOther ? 'd-block' : 'd-none'}>
                 <Form.Group controlId="otherTextField">
                     <Form.Label>Other:</Form.Label>
                     <Form.Control
                         type="text"
                         placeholder="Enter your input here"
                         value={otherInput} // Assuming you have a state for this
+                        onChange={(e) => setOtherInput(e.target.value)}
                     />
                 </Form.Group>
             </div>
 
-            <div id="fenomenoMeteorologico" className={selectedDispositivo === 'DECIR' || selectedEvent === 'Outro' ? 'd-none' : 'd-block'}>
+            <div id="fenomenoMeteorologico" className={showFenomenoMeteorologico ? 'd-block' : 'd-none'}>
                 <Form.Group controlId="formConditions">
                     <Form.Label>Select meteorological conditions</Form.Label>
                     {['Chuva', 'Neve', 'Granizo', 'Vento', 'Frio', 'Calor', 'Nevoeiro', 'Trovoada', 'Agitação Marítima', 'Other'].map((condition, index) => (
@@ -114,7 +131,7 @@ function DispositivoDropDown_TEST() {
                 </Form.Group>
             </div>
 
-            <div id="evolucaoEAE" className={selectedEvent === 'Outro' ? 'd-none' : 'd-block'}>
+            <div id="evolucaoEAE" className={showEvolucaoEAE ? 'd-block' : 'd-none'}>
                 {/* Content for DIRACAERO or Especial */}
                 evolucaoEAE
             </div>

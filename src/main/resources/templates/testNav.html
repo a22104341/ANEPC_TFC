@@ -3,7 +3,12 @@
     <div id="yes"></div>
 
     <script th:inline="javascriptForm">
-        const HelloWorld = new components.HelloWorld();
-        ReactDOM.render(HelloWorld, document.getElementById('yes'));
+        // Import the new createRoot function
+        const { createRoot } = ReactDOM;
+
+        // Render your components using createRoot
+
+        const HelloWorldRoot = createRoot(document.getElementById('yes'));
+        HelloWorldRoot.render(React.createElement(components.HelloWorld));
     </script>
 </div>
