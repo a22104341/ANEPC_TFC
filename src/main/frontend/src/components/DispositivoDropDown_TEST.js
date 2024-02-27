@@ -20,13 +20,16 @@ function DispositivoDropDown_TEST() {
     const [showFenomenoMeteorologico, setShowFenomenoMeteorologico] = useState(false); // Initial state for fenomenoMeteorologico
     const [showEvolucaoEAE, setShowEvolucaoEAE] = useState(false); // Initial state for evolucaoEAE
 
+
     const handleDropdownChange_dispositivo = (event) => {
         let thisDispositivo = event.target.value;
+
+
         setSelectedDispositivo(thisDispositivo);
         setShowEventType(!(thisDispositivo === 'DECIR' || thisDispositivo === ''));
         setShowOther(!(thisDispositivo === 'DECIR' || thisDispositivo === '') && !(selectedEvent === 'MeteorologiaAdversa' || selectedEvent === ''));
         setShowFenomenoMeteorologico(!(thisDispositivo === 'DECIR' || thisDispositivo === '') && !(selectedEvent === 'Outro' || selectedEvent === ''));
-        setShowEvolucaoEAE(thisDispositivo === 'DECIR' ||!(thisDispositivo === '' || selectedEvent === 'Outro'));
+        setShowEvolucaoEAE((!(thisDispositivo === '') && thisDispositivo === 'DECIR') || !(selectedEvent === 'Outro' || selectedEvent === ''));
     };
 
     const handleDropdownChange_event = (event) => {
@@ -34,12 +37,12 @@ function DispositivoDropDown_TEST() {
         setSelectedEvent(thisEvent);
         setShowOther(!(selectedDispositivo === 'DECIR' || selectedDispositivo === '') && !(thisEvent === 'MeteorologiaAdversa' || thisEvent === ''));
         setShowFenomenoMeteorologico(!(selectedDispositivo === 'DECIR' || selectedDispositivo === '') && !(thisEvent === 'Outro' || thisEvent === ''));
-        setShowEvolucaoEAE(selectedDispositivo === 'DECIR' || !(thisEvent === 'Outro'|| thisEvent === ''));
+        setShowEvolucaoEAE((!(selectedDispositivo === '') && selectedDispositivo === 'DECIR') || !(thisEvent === 'Outro' || thisEvent === ''));
     };
 
     // MultipleChoice
     const handleConditionsChange = (event) => {
-        const { value, checked } = event.target;
+        const {value, checked} = event.target;
         if (checked) {
             setSelectedConditions(prevSelected => [...prevSelected, value]);
         } else {
@@ -61,14 +64,12 @@ function DispositivoDropDown_TEST() {
             selectedEvent
         };
 
-        if(selectedEvent ==='MeteorologiaAdversa'){
+        if (selectedEvent === 'MeteorologiaAdversa') {
             formData = {
                 ...formData,
                 selectedConditions
             }
-        }
-        else
-        {
+        } else {
             formData = {
                 ...formData,
                 otherInput
@@ -91,7 +92,7 @@ function DispositivoDropDown_TEST() {
                 </Form.Control>
             </Form.Group>
 
-            <div id="eventType" className={showEventType ? 'd-block' : 'd-none'}>
+            {showEventType && <div id="eventType">
                 <Form.Group controlId="formEventType">
                     <Form.Label>Select an EventType</Form.Label>
                     <Form.Control as="select" onChange={handleDropdownChange_event}>
@@ -100,9 +101,9 @@ function DispositivoDropDown_TEST() {
                         <option value="Outro">Outro</option>
                     </Form.Control>
                 </Form.Group>
-            </div>
+            </div>}
 
-            <div id="other" className={showOther ? 'd-block' : 'd-none'}>
+            {showOther && <div id="other">
                 <Form.Group controlId="otherTextField">
                     <Form.Label>Other:</Form.Label>
                     <Form.Control
@@ -112,9 +113,9 @@ function DispositivoDropDown_TEST() {
                         onChange={(e) => setOtherInput(e.target.value)}
                     />
                 </Form.Group>
-            </div>
+            </div>}
 
-            <div id="fenomenoMeteorologico" className={showFenomenoMeteorologico ? 'd-block' : 'd-none'}>
+            {showFenomenoMeteorologico && <div id="fenomenoMeteorologico">
                 <Form.Group controlId="formConditions">
                     <Form.Label>Select meteorological conditions</Form.Label>
                     {['Chuva', 'Neve', 'Granizo', 'Vento', 'Frio', 'Calor', 'Nevoeiro', 'Trovoada', 'Agitação Marítima', 'Other'].map((condition, index) => (
@@ -129,13 +130,12 @@ function DispositivoDropDown_TEST() {
                         />
                     ))}
                 </Form.Group>
-            </div>
+            </div>}
 
-            <div id="evolucaoEAE" className={showEvolucaoEAE ? 'd-block' : 'd-none'}>
+            {showEvolucaoEAE && <div id="evolucaoEAE">
                 {/* Content for DIRACAERO or Especial */}
                 evolucaoEAE
-            </div>
-
+            </div>}
 
             <button type="submit">Submit</button>
         </Form>
