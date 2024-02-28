@@ -16,6 +16,7 @@
   </div>
 
   <p>CTO Form page</p>
+  <div id="dispositivo"></div>
 
   <!--<div th:replace="~{ctoForm/ctoForm_Page1 :: ctoForm_Page1}"></div>-->
   <!-- Add a dropdown with all the options -->
@@ -35,7 +36,13 @@
 <script th:src="@{components.js}"></script>
 
 <script th:inline="javascript">
+  // Import the new createRoot function
+  const { createRoot } = ReactDOM;
 
+  // Render your components using createRoot
+
+  const DispositivoDropDownRoot = createRoot(document.getElementById('dispositivo'));
+  DispositivoDropDownRoot.render(React.createElement(components.DispositivoDropDown));
 </script>
 
 </body>
