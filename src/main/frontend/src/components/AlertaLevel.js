@@ -83,6 +83,7 @@ function AlertaLevel() {
         <Form id="form_AlertaLevels" onSubmit={handleSubmit}>
             {generateForm(tableNames, tableData, columns)}
             <button type="submit">Next Page</button>
+            {console.log("AlertaLevels rendered")}
         </Form>
     );
 }
