@@ -103,7 +103,7 @@ function DispositivoDropDown() {
     };
 
     return (
-        <Form id="form_Page1" onSubmit={handleSubmit}>
+        <Form id="form_DispositivoDropDown" onSubmit={handleSubmit}>
             <Form.Group controlId="formDispositivo">
                 <Form.Label>Select an option</Form.Label>
                 <Form.Control as="select" onChange={handleDropdownChange_dispositivo}>

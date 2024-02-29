@@ -12,16 +12,39 @@ function Login_TEST() {
         setIsPwVisibilityChecked(event.target.checked);
     };
 
-    //save stuff on submit
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
-        // Handle form submission here
+        // log the inputs
         let formData = {
             emailInput,
             passwordInput
         };
         console.log(formData); // send it into the log
+
+        try {
+            const response = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: emailInput,
+                    password: passwordInput
+                })
+            });
+            console.log("STEP1:" + emailInput + "   " + passwordInput);
+
+            if (!response.ok) {
+                throw new Error('Login failed');
+            }
+
+            // Handle successful login, e.g., redirect user to dashboard
+            console.log('Login successful');
+        } catch (error) {
+            console.error('Error:', error.message);
+            // Handle login error, e.g., display error message to user
+        }
     };
 
     return (
