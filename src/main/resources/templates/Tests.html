@@ -15,6 +15,7 @@
 <div id="dispositivo"></div>
 
 <br>
+<div id="alertaLevelTables"></div>
 <br>
 
 <div id="login"></div>
@@ -40,6 +41,9 @@
 
     const LoginRoot = createRoot(document.getElementById('login'));
     LoginRoot.render(React.createElement(components.Login_TEST));
+
+    const AlertaLevelRoot = createRoot(document.getElementById('alertaLevelTables'));
+    AlertaLevelRoot.render(React.createElement(components.AlertaLevel_TEST));
 </script>
 
 
