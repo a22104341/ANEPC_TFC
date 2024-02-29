@@ -5,12 +5,7 @@ function DispositivoDropDown() {
 
     /*
 
-     + DIOPS -> Meteor -> Escolha uma Opcao(dispositivo) -> evolucaoEAE still shows up, can't fix it :D
-     + When i go back to DIOPS or sth, events says "Escolha uma Opcao", but it shows as if i picked meteorologico
-
-     +The Outro box, in the Multiple Choice, doesn't autoselect itself when length of text inside > 0, and it
-     +If you click on the select button again, it resaves into the Array AGAIN
-     +If you write in it and change EventType -> Outro the field keeps the text, that you wrote in outro, as if it's the same textfield
+     +The Outro box, in the Multiple Choice, doesn't autoselect itself when length of text inside > 0
 
      */
 
@@ -20,6 +15,8 @@ function DispositivoDropDown() {
     const [selectedConditions, setSelectedConditions] = useState([]); // MultipleChoice
     const [selectedEAE, setselectedEAE] = useState([]); // EAE
 
+    const [multiOtherInput, setMultiOtherInput] = useState('');
+    const [isOtherChecked, setIsOtherChecked] = useState(false);
 
     const [showEventType, setShowEventType] = useState(false); // Initial state for eventType
     const [showOther, setShowOther] = useState(false); // Initial state for other
@@ -29,30 +26,43 @@ function DispositivoDropDown() {
 
     const handleDropdownChange_dispositivo = (event) => {
         let thisDispositivo = event.target.value;
-
-
         setSelectedDispositivo(thisDispositivo);
+
         setShowEventType(!(thisDispositivo === 'DECIR' || thisDispositivo === ''));
         setShowOther(!(thisDispositivo === 'DECIR' || thisDispositivo === '') && !(selectedEvent === 'MeteorologiaAdversa' || selectedEvent === ''));
         setShowFenomenoMeteorologico(!(thisDispositivo === 'DECIR' || thisDispositivo === '') && !(selectedEvent === 'Outro' || selectedEvent === ''));
-        setShowEvolucaoEAE((!(thisDispositivo === '') && thisDispositivo === 'DECIR') || !(selectedEvent === 'Outro' || selectedEvent === ''));
+
+        // Reset selected event, depending on choices in dispositivo
+        if (thisDispositivo === 'DECIR' || thisDispositivo === ''){
+            setSelectedEvent('');
+        }
+        // Hide evolucaoEAE depending on choices
+        setShowEvolucaoEAE((thisDispositivo === 'DECIR') || (thisDispositivo !== '' && !(selectedEvent === 'Outro' || selectedEvent === '')));
     };
 
     const handleDropdownChange_event = (event) => {
         let thisEvent = event.target.value;
         setSelectedEvent(thisEvent);
-        setShowOther(!(selectedDispositivo === 'DECIR' || selectedDispositivo === '') && !(thisEvent === 'MeteorologiaAdversa' || thisEvent === ''));
-        setShowFenomenoMeteorologico(!(selectedDispositivo === 'DECIR' || selectedDispositivo === '') && !(thisEvent === 'Outro' || thisEvent === ''));
-        setShowEvolucaoEAE((!(selectedDispositivo === '') && selectedDispositivo === 'DECIR') || !(thisEvent === 'Outro' || thisEvent === ''));
+
+        setShowOther(!(thisEvent === 'MeteorologiaAdversa' || thisEvent === ''));
+        setShowFenomenoMeteorologico(!(thisEvent === 'Outro' || thisEvent === ''));
+        setShowEvolucaoEAE(!(thisEvent === 'Outro' || thisEvent === ''));
     };
 
     // MultipleChoice
     const handleConditionsChange = (event) => {
-        const {value, checked} = event.target;
-        if (checked) {
-            setSelectedConditions(prevSelected => [...prevSelected, value]);
+        const { value, checked, id } = event.target;
+        if (id === 'condition-9') { // ID of the "Other" checkbox
+            setIsOtherChecked(checked);
+            if (!checked) {
+                setSelectedConditions(prevSelected => prevSelected.filter(condition => condition !== value));
+            }
         } else {
-            setSelectedConditions(prevSelected => prevSelected.filter(condition => condition !== value));
+            if (checked) {
+                setSelectedConditions(prevSelected => [...prevSelected, value]);
+            } else {
+                setSelectedConditions(prevSelected => prevSelected.filter(condition => condition !== value));
+            }
         }
     };
 
@@ -70,16 +80,18 @@ function DispositivoDropDown() {
     const handleSubmit = (event) => {
         event.preventDefault();
         // Handle form submission here
+
         let formData = {
             selectedDispositivo,
-            selectedEvent,
-            selectedEAE
+            selectedEvent
         };
 
         if (selectedEvent === 'MeteorologiaAdversa') {
             formData = {
                 ...formData,
-                selectedConditions
+                //Check if Other was checked and save its input into the array
+                selectedConditions: isOtherChecked ? [...selectedConditions, multiOtherInput] : selectedConditions,
+                selectedEAE
             }
         } else {
             formData = {
@@ -141,14 +153,14 @@ function DispositivoDropDown() {
                                         <input
                                             type="text"
                                             placeholder="Outro"
-                                            value={selectedConditions}
-                                            onChange={(e) => setSelectedConditions(e.target.value)}
+                                            value={multiOtherInput}
+                                            onChange={(e) => setMultiOtherInput(e.target.value)}
                                         />
                                     </div>
                                 ) : condition}
-                                value={condition === 'Other' ? otherInput : condition}
+                                value={condition}
                                 onChange={handleConditionsChange}
-                                checked={selectedConditions.includes(condition)}
+                                checked={condition === 'Other' ? isOtherChecked : selectedConditions.includes(condition)}
                             />
                         ))}
                     </Form.Group>

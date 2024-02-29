@@ -5,10 +5,7 @@ function DispositivoDropDown_TEST() {
 
     /*
 
-     + DIOPS -> Meteor -> Escolha uma Opcao(dispositivo) -> evolucaoEAE still shows up, can't fix it :D
-     + When i go back to DIOPS or sth, events says "Escolha uma Opcao", but it shows as if i picked meteorologico
-
-     +The Outro box, in the Multiple Choice, doesn't autoselect itself when length of text inside > 0, and it
+     +The Outro box, in the Multiple Choice, doesn't autoselect itself when length of text inside > 0
 
      */
 
@@ -29,21 +26,27 @@ function DispositivoDropDown_TEST() {
 
     const handleDropdownChange_dispositivo = (event) => {
         let thisDispositivo = event.target.value;
-
-
         setSelectedDispositivo(thisDispositivo);
+
         setShowEventType(!(thisDispositivo === 'DECIR' || thisDispositivo === ''));
         setShowOther(!(thisDispositivo === 'DECIR' || thisDispositivo === '') && !(selectedEvent === 'MeteorologiaAdversa' || selectedEvent === ''));
         setShowFenomenoMeteorologico(!(thisDispositivo === 'DECIR' || thisDispositivo === '') && !(selectedEvent === 'Outro' || selectedEvent === ''));
-        setShowEvolucaoEAE((!(thisDispositivo === '') && thisDispositivo === 'DECIR') || !(selectedEvent === 'Outro' || selectedEvent === ''));
+
+        // Reset selected event, depending on choices in dispositivo
+        if (thisDispositivo === 'DECIR' || thisDispositivo === ''){
+            setSelectedEvent('');
+        }
+        // Hide evolucaoEAE depending on choices
+        setShowEvolucaoEAE((thisDispositivo === 'DECIR') || (thisDispositivo !== '' && !(selectedEvent === 'Outro' || selectedEvent === '')));
     };
 
     const handleDropdownChange_event = (event) => {
         let thisEvent = event.target.value;
         setSelectedEvent(thisEvent);
-        setShowOther(!(selectedDispositivo === 'DECIR' || selectedDispositivo === '') && !(thisEvent === 'MeteorologiaAdversa' || thisEvent === ''));
-        setShowFenomenoMeteorologico(!(selectedDispositivo === 'DECIR' || selectedDispositivo === '') && !(thisEvent === 'Outro' || thisEvent === ''));
-        setShowEvolucaoEAE((!(selectedDispositivo === '') && selectedDispositivo === 'DECIR') || !(thisEvent === 'Outro' || thisEvent === ''));
+
+        setShowOther(!(thisEvent === 'MeteorologiaAdversa' || thisEvent === ''));
+        setShowFenomenoMeteorologico(!(thisEvent === 'Outro' || thisEvent === ''));
+        setShowEvolucaoEAE(!(thisEvent === 'Outro' || thisEvent === ''));
     };
 
     // MultipleChoice
