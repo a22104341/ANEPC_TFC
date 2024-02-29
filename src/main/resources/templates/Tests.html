@@ -14,6 +14,11 @@
 
 <div id="dispositivo"></div>
 
+<br>
+<br>
+
+<div id="login"></div>
+
 <p>Tests page</p>
 
 <!-- DevMode -->
@@ -32,6 +37,9 @@
 
     const DispositivoDropDownRoot = createRoot(document.getElementById('dispositivo'));
     DispositivoDropDownRoot.render(React.createElement(components.DispositivoDropDown_TEST));
+
+    const LoginRoot = createRoot(document.getElementById('login'));
+    LoginRoot.render(React.createElement(components.Login_TEST));
 </script>
 
 

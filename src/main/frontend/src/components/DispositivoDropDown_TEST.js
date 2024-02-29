@@ -11,12 +11,12 @@ function DispositivoDropDown_TEST() {
 
     const [selectedDispositivo, setSelectedDispositivo] = useState('');
     const [selectedEvent, setSelectedEvent] = useState('');
-    const [otherInput, setOtherInput] = useState(''); // Other in multipleChoice
+    const [otherInput, setOtherInput] = useState(''); // Other
     const [selectedConditions, setSelectedConditions] = useState([]); // MultipleChoice
     const [selectedEAE, setselectedEAE] = useState([]); // EAE
 
-    const [multiOtherInput, setMultiOtherInput] = useState('');
-    const [isOtherChecked, setIsOtherChecked] = useState(false);
+    const [multiOtherInput, setMultiOtherInput] = useState(''); // MultipleChoice "Other"
+    const [isOtherChecked, setIsOtherChecked] = useState(false); // Initial state for isOtherChecked
 
     const [showEventType, setShowEventType] = useState(false); // Initial state for eventType
     const [showOther, setShowOther] = useState(false); // Initial state for other
@@ -79,8 +79,8 @@ function DispositivoDropDown_TEST() {
     //save stuff on submit
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Handle form submission here
 
+        // Handle form submission here
         let formData = {
             selectedDispositivo,
             selectedEvent
@@ -133,7 +133,7 @@ function DispositivoDropDown_TEST() {
                     <Form.Control
                         type="text"
                         placeholder="Enter your input here"
-                        value={otherInput} // Assuming you have a state for this
+                        value={otherInput}
                         onChange={(e) => setOtherInput(e.target.value)}
                     />
                 </Form.Group>

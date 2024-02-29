@@ -185,7 +185,8 @@ function DispositivoDropDown() {
                 </Form.Group>
             </div>}
 
-            <button type="submit">Submit</button>
+            <button type="submit">Next Page</button>
+            {console.log("CTO Form loaded")}
         </Form>
 
     );

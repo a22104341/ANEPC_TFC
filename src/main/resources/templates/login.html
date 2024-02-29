@@ -7,21 +7,29 @@
     <title>homepage</title>
 </head>
 <body>
+
 <div class="container">
     <div th:with="replaceTHIS='Iniciar Sessão'">
         <!-- Include navigation Bar fragment -->
         <div th:replace="navBar :: navBar"></div>
-        <div>Login page</div>
     </div>
 </div>
 
+
+<div id="login"></div>
 
 <script th:src="@{/webjars/react/18.1.0/umd/react.production.min.js}"></script>
 <script th:src="@{/webjars/react-dom/18.1.0/umd/react-dom.production.min.js}"></script>
 <script th:src="@{components.js}"></script>
 
 <script th:inline="javascript">
+    // Import the new createRoot function
+    const { createRoot } = ReactDOM;
 
+    // Render your components using createRoot
+
+    const LoginRoot = createRoot(document.getElementById('login'));
+    LoginRoot.render(React.createElement(components.Login));
 </script>
 
 </body>

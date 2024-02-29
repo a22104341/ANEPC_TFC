@@ -8,3 +8,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 export { default as DispositivoDropDown } from './components/DispositivoDropDown';
 export { default as DispositivoDropDown_TEST } from './components/DispositivoDropDown_TEST';
+
+export { default as Login } from './components/Login';
+export { default as Login_TEST } from './components/Login_TEST';
