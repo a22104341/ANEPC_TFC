@@ -1,0 +1,54 @@
+/* styles.css */
+
+
+/* Navbar layout */
+.navbar {
+    display: grid;
+    background-color: aqua;
+    grid-template-rows: auto auto; /* Define grid rows */
+    grid-template-columns: 60% 40%; /* Define grid columns */
+    grid-template-areas:
+        "top-nav main-nav"
+        "bottom-nav bottom-nav";
+}
+
+/* Style the top navigation */
+.top-nav {
+    grid-area: top-nav;
+}
+
+/* Style the main navigation */
+.main-nav {
+    grid-area: main-nav;
+    background-color: purple;
+}
+
+/* Style the bottom navigation */
+.bottom-nav {
+    grid-area: bottom-nav;
+    display: grid;
+    background-color: deeppink;
+    grid-template-rows: auto; /* Define grid rows */
+    grid-template-columns: 70% 40%; /* Define grid columns */
+    grid-template-areas:
+    "dynamicText logoutButton";
+}
+
+/* Style the dynamic text */
+.dynamicText {
+    grid-area: dynamicText; /* Place dynamicText in its grid area */
+    display: flex;
+    justify-content: center;
+
+    background-color: darkgreen;
+}
+
+/* Style the logout button */
+.logoutButton {
+    grid-area: logoutButton; /* Place logoutButton in its grid area */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: blue;
+}

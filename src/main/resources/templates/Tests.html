@@ -8,6 +8,8 @@
 </head>
 <body>
 
+<div id ="navBar"></div>
+
 <div class="container">
     <!--<div th:replace="testNav :: testNav"></div>-->
 </div>
@@ -44,6 +46,9 @@
 
     const AlertaLevelRoot = createRoot(document.getElementById('alertaLevelTables'));
     AlertaLevelRoot.render(React.createElement(components.AlertaLevel_TEST));
+
+    const NavBarRoot = createRoot(document.getElementById('navBar'));
+    NavBarRoot.render(React.createElement(components.NavBar, { dynamicText: "Dynamic Text Placeholder" }));
 </script>
 
 
