@@ -8,6 +8,7 @@
     --blueANEPC: #0A2D61;
 
 }
+
 /* Navbar layout */
 .navbar {
     display: grid;
@@ -18,8 +19,6 @@
         "topSection"
         "bottom-nav";
 }
-
-
 .topSection{
     grid-area: topSection;
     display: grid;
@@ -28,15 +27,11 @@
     grid-template-areas:
         "nav-logo main-nav";
 }
-
-/* Style the top navigation */
 .nav-logo {
     grid-area: nav-logo;
     display: flex;
     justify-content: center;
 }
-
-/* Style the main navigation */
 .main-nav {
     grid-area: main-nav;
 
@@ -46,14 +41,9 @@
     padding: 0 4vw;
     font-weight: bold;
 }
-
 .main-nav .nav-link {
     font-size: 20px;
 }
-
-
-
-/* Style the bottom navigation */
 .bottom-nav {
     grid-area: bottom-nav;
     display: grid;
@@ -64,34 +54,27 @@
     grid-template-areas:
     "dynamicText logoutButton";
 }
-
-/* Style the dynamic text */
 .dynamicText {
     grid-area: dynamicText; /* Place dynamicText in its grid area */
     display: flex;
     justify-content: center;
-
 }
-
 .dynamicText .navbar-text{
     color:white;
 }
-
-
-/* Style the logout button */
 .logoutButton {
     grid-area: logoutButton; /* Place logoutButton in its grid area */
     display: flex;
     align-items: center;
     justify-content: center;
 }
-
 .logoutButton .dropdown-toggle{
     width: 150px;
 }
-
 .logoutButton .dropdown-menu {
     width: 150px; /* Make the dropdown menu same width as the logout button */
     margin-left: -1px; /* Adjust margin to align with the button */
     text-align: center; /* Center align the dropdown items */
 }
+
+

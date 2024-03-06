@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 
-function AlertaLevel_TEST() {
+function AlertaLevel() {
     const [selectedOptions, setselectedOptions] = useState({});
 
     const [tableNames] = useState(['Comando Nacional', 'Comando Regional Norte', 'Comando Regional Centro', 'Comando Regional Lisboa e Vale do Tejo', 'Comando Regional Alentejo', 'Comando Regional Algarve']);
@@ -80,11 +80,12 @@ function AlertaLevel_TEST() {
     };
 
     return (
-        <Form id="form_AlertaLevels_TEST" onSubmit={handleSubmit}>
+        <Form id="form_AlertaLevels" onSubmit={handleSubmit}>
             {generateForm(tableNames, tableData, columns)}
             <button type="submit">Next Page</button>
+            {console.log("AlertaLevels rendered")}
         </Form>
     );
 }
 
-export default AlertaLevel_TEST;
+export default AlertaLevel;
