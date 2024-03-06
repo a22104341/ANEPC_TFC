@@ -28,7 +28,8 @@ function NavBar({ dynamicText }) {
     const handleLogout = () => {
         // Handle logout logic here
         console.log('Logout clicked');
-
+        // Redirect to '/login' page
+        window.location.replace('/login');
         // Optional: Close the dropdown after logout
         setShowDropdown(false);
     };
