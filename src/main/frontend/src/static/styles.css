@@ -1,35 +1,62 @@
 /* styles.css */
 
+/* Define variables, colors */
+:root{
+    --greySite: #3F4345;
 
+}
 /* Navbar layout */
 .navbar {
     display: grid;
-    background-color: aqua;
-    grid-template-rows: auto auto; /* Define grid rows */
-    grid-template-columns: 60% 40%; /* Define grid columns */
+    background-color: white;
+    grid-auto-columns: 100%;
+    grid-template-rows: 4fr 3fr;
     grid-template-areas:
-        "top-nav main-nav"
-        "bottom-nav bottom-nav";
+        "topSection"
+        "bottom-nav";
+}
+
+
+.topSection{
+    grid-area: topSection;
+    display: grid;
+    grid-auto-columns: 2fr 3fr;
+    align-items: center;
+    grid-template-areas:
+        "nav-logo main-nav";
 }
 
 /* Style the top navigation */
-.top-nav {
-    grid-area: top-nav;
+.nav-logo {
+    grid-area: nav-logo;
+    display: flex;
+    justify-content: center;
 }
 
 /* Style the main navigation */
 .main-nav {
     grid-area: main-nav;
-    background-color: purple;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 4vw;
 }
+
+.main-nav .nav-link {
+    font-size: 20px;
+}
+
+
 
 /* Style the bottom navigation */
 .bottom-nav {
     grid-area: bottom-nav;
     display: grid;
-    background-color: deeppink;
+    padding: 1vh;
+    background-color: var(--greySite);
     grid-template-rows: auto; /* Define grid rows */
-    grid-template-columns: 70% 40%; /* Define grid columns */
+    grid-template-columns: 60% 40%; /* Define grid columns */
     grid-template-areas:
     "dynamicText logoutButton";
 }
@@ -39,9 +66,9 @@
     grid-area: dynamicText; /* Place dynamicText in its grid area */
     display: flex;
     justify-content: center;
-
-    background-color: darkgreen;
+    color:white;
 }
+
 
 /* Style the logout button */
 .logoutButton {
@@ -49,6 +76,4 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
-    background-color: blue;
 }
