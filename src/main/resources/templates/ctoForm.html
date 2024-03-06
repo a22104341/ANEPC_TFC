@@ -10,10 +10,8 @@
 
 <script></script>
 <div class="container">
-  <div th:with="replaceTHIS='Criar CTO'">
-    <!-- Include navigation Bar fragment -->
-    <div th:replace="~{navBar :: navBar}"></div>
-  </div>
+
+  <div id ="navBar"></div>
 
   <p>CTO Form page</p>
   <div id="dispositivo"></div>
@@ -40,6 +38,8 @@
   const { createRoot } = ReactDOM;
 
   // Render your components using createRoot
+  const NavBarRoot = createRoot(document.getElementById('navBar'));
+  NavBarRoot.render(React.createElement(components.NavBar, { dynamicText: "Dynamic Text Placeholder" }));
 
   const DispositivoDropDownRoot = createRoot(document.getElementById('dispositivo'));
   DispositivoDropDownRoot.render(React.createElement(components.DispositivoDropDown));

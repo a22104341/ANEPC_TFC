@@ -9,10 +9,9 @@
 <body>
 
 <div class="container">
-  <div th:with="replaceTHIS='Consultar Estatísticas'">
-    <!-- Include navigation Bar fragment -->
-    <div th:replace="navBar :: navBar"></div>
-  </div>
+
+  <div id ="navBar"></div>
+
   <p>Statistic's page</p>
 </div>
 
@@ -21,7 +20,12 @@
 <script th:src="@{components.js}"></script>
 
 <script th:inline="javascript">
+  // Import the new createRoot function
+  const { createRoot } = ReactDOM;
 
+  // Render your components using createRoot
+  const NavBarRoot = createRoot(document.getElementById('navBar'));
+  NavBarRoot.render(React.createElement(components.NavBar, { dynamicText: "Dynamic Text Placeholder" }));
 </script>
 
 </body>

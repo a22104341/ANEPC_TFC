@@ -22,6 +22,10 @@ function Login() {
             passwordInput
         };
         console.log(formData); // send it into the log
+
+
+        // ADD THE CHECK HERE
+        window.location.href = '/criar_cto';
     };
 
     return (

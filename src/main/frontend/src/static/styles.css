@@ -3,6 +3,9 @@
 /* Define variables, colors */
 :root{
     --greySite: #3F4345;
+    --orangeANEPC: #EC4615;
+    --greenANEPC: #4D9233;
+    --blueANEPC: #0A2D61;
 
 }
 /* Navbar layout */
@@ -41,6 +44,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 4vw;
+    font-weight: bold;
 }
 
 .main-nav .nav-link {
@@ -66,6 +70,10 @@
     grid-area: dynamicText; /* Place dynamicText in its grid area */
     display: flex;
     justify-content: center;
+
+}
+
+.dynamicText .navbar-text{
     color:white;
 }
 
@@ -76,4 +84,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.logoutButton .dropdown-toggle{
+    width: 150px;
+}
+
+.logoutButton .dropdown-menu {
+    width: 150px; /* Make the dropdown menu same width as the logout button */
+    margin-left: -1px; /* Adjust margin to align with the button */
+    text-align: center; /* Center align the dropdown items */
 }
