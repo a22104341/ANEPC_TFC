@@ -1,7 +1,7 @@
 /* styles.css */
 
 /* Define variables, colors */
-:root{
+:root {
     --greyNav: #3F4345;
     --greyTableOutline: #CCCCCC;
 
@@ -29,7 +29,8 @@
         "topSection"
         "bottom-nav";
 }
-.topSection{
+
+.topSection {
     grid-area: topSection;
     display: grid;
     grid-auto-columns: 2fr 3fr;
@@ -37,11 +38,13 @@
     grid-template-areas:
         "nav-logo main-nav";
 }
+
 .nav-logo {
     grid-area: nav-logo;
     display: flex;
     justify-content: center;
 }
+
 .main-nav {
     grid-area: main-nav;
 
@@ -51,9 +54,11 @@
     padding: 0 4vw;
     font-weight: bold;
 }
+
 .main-nav .nav-link {
     font-size: 20px;
 }
+
 .bottom-nav {
     grid-area: bottom-nav;
     display: grid;
@@ -64,23 +69,28 @@
     grid-template-areas:
     "dynamicText logoutButton";
 }
+
 .dynamicText {
     grid-area: dynamicText; /* Place dynamicText in its grid area */
     display: flex;
     justify-content: center;
 }
-.dynamicText .navbar-text{
-    color:white;
+
+.dynamicText .navbar-text {
+    color: white;
 }
+
 .logoutButton {
     grid-area: logoutButton; /* Place logoutButton in its grid area */
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.logoutButton .dropdown-toggle{
+
+.logoutButton .dropdown-toggle {
     width: 150px;
 }
+
 .logoutButton .dropdown-menu {
     width: 150px; /* Make the dropdown menu same width as the logout button */
     margin-left: -1px; /* Adjust margin to align with the button */
@@ -114,8 +124,16 @@
 /* MULTIPLE CHOICE */
 
 /* Outline on Table */
-.table{
+.table {
     outline: var(--greyTableOutline) solid 1px;
+}
+/* Outline to seperate Names from choices */
+.col:first-child {
+    border-right: var(--greyTableOutline) solid 1px;
+}
+/* Outline to seperate Colors from choices */
+.row:first-child{
+    border-bottom: var(--greyTableOutline) solid 1px;
 }
 
 /* Multiple Choice Header Colors */
@@ -124,45 +142,55 @@
 .row:first-child > .col:nth-child(2) > div:first-child {
     background-color: var(--greenMulti);
 }
+
 .row:first-child > .col:nth-child(3) > div:first-child {
     background-color: var(--blueMulti);
 }
+
 .row:first-child > .col:nth-child(4) > div:first-child {
     background-color: var(--yellowMulti);
 }
+
 .row:first-child > .col:nth-child(5) > div:first-child {
     background-color: var(--orangeMulti);;
 }
+
 .row:first-child > .col:nth-child(6) > div:first-child {
     background-color: var(--redMulti);
 }
+
 /* outside part */
 .row:first-child > .col:nth-child(2) {
     background-color: var(--greenMulti);
 }
+
 .row:first-child > .col:nth-child(3) {
     background-color: var(--blueMulti);
 }
+
 .row:first-child > .col:nth-child(4) {
     background-color: var(--yellowMulti);
 }
+
 .row:first-child > .col:nth-child(5) {
     background-color: var(--orangeMulti);;
 }
+
 .row:first-child > .col:nth-child(6) {
     background-color: var(--redMulti);
 }
 
 /* Every 2nd row grey */
-.row:nth-child(odd){
+.row:nth-child(odd) {
     background-color: var(--paleGreyMulti);
 }
+
 .row:nth-child(odd) > .col > div:first-child {
     background-color: var(--paleGreyMulti);
 }
 
 /* Center everything except 1st position */
-.col:not(:first-child){
+.col:not(:first-child) {
     display: flex;
     justify-content: center;
 }
