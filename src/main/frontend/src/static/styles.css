@@ -2,7 +2,8 @@
 
 /* Define variables, colors */
 :root{
-    --greySite: #3F4345;
+    --greyNav: #3F4345;
+    --greyTableOutline: #CCCCCC;
 
     /* ANEPC colors */
     --orangeANEPC: #EC4615;
@@ -15,6 +16,7 @@
     --yellowMulti: #F4F5C2;
     --orangeMulti: #F5D7C2;
     --redMulti: #F5C2C2;
+    --paleGreyMulti: #F2F2F2;
 }
 
 /* Navbar layout */
@@ -56,7 +58,7 @@
     grid-area: bottom-nav;
     display: grid;
     padding: 1vh;
-    background-color: var(--greySite);
+    background-color: var(--greyNav);
     grid-template-rows: auto; /* Define grid rows */
     grid-template-columns: 60% 40%; /* Define grid columns */
     grid-template-areas:
@@ -108,26 +110,64 @@
     background-color: yellow;
 }*/
 
-/* 1st one is the empty one */
+
+/* MULTIPLE CHOICE */
+
+/* Outline on Table */
+.table{
+    outline: var(--greyTableOutline) solid 1px;
+}
+
+/* Multiple Choice Header Colors */
+/* 1st child would be the empty one */
+/* inside part */
 .row:first-child > .col:nth-child(2) > div:first-child {
     background-color: var(--greenMulti);
 }
-
 .row:first-child > .col:nth-child(3) > div:first-child {
     background-color: var(--blueMulti);
 }
-
 .row:first-child > .col:nth-child(4) > div:first-child {
     background-color: var(--yellowMulti);
 }
-
 .row:first-child > .col:nth-child(5) > div:first-child {
     background-color: var(--orangeMulti);;
 }
-
 .row:first-child > .col:nth-child(6) > div:first-child {
     background-color: var(--redMulti);
 }
+/* outside part */
+.row:first-child > .col:nth-child(2) {
+    background-color: var(--greenMulti);
+}
+.row:first-child > .col:nth-child(3) {
+    background-color: var(--blueMulti);
+}
+.row:first-child > .col:nth-child(4) {
+    background-color: var(--yellowMulti);
+}
+.row:first-child > .col:nth-child(5) {
+    background-color: var(--orangeMulti);;
+}
+.row:first-child > .col:nth-child(6) {
+    background-color: var(--redMulti);
+}
+
+/* Every 2nd row grey */
+.row:nth-child(odd){
+    background-color: var(--paleGreyMulti);
+}
+.row:nth-child(odd) > .col > div:first-child {
+    background-color: var(--paleGreyMulti);
+}
+
+/* Center everything except 1st position */
+.col:not(:first-child){
+    display: flex;
+    justify-content: center;
+}
+
+
 
 
 
