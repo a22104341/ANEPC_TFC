@@ -3,10 +3,18 @@
 /* Define variables, colors */
 :root{
     --greySite: #3F4345;
+
+    /* ANEPC colors */
     --orangeANEPC: #EC4615;
     --greenANEPC: #4D9233;
     --blueANEPC: #0A2D61;
 
+    /* Pale colors for multiple choice background */
+    --greenMulti: #C9E4C2;
+    --blueMulti: #C2C5E4;
+    --yellowMulti: #F4F5C2;
+    --orangeMulti: #F5D7C2;
+    --redMulti: #F5C2C2;
 }
 
 /* Navbar layout */
@@ -76,5 +84,50 @@
     margin-left: -1px; /* Adjust margin to align with the button */
     text-align: center; /* Center align the dropdown items */
 }
+
+
+/* Identify what is what */
+/*
+.col{
+    background-color: purple;
+}
+
+#form_AlertaLevels{
+    background-color: palegreen;
+}
+
+.col > div:first-child {
+    background-color: brown;
+}
+
+.row > .col:first-child > div {
+    background-color: pink;
+}
+
+.row > .col:first-child > div:first-child {
+    background-color: yellow;
+}*/
+
+/* 1st one is the empty one */
+.row:first-child > .col:nth-child(2) > div:first-child {
+    background-color: var(--greenMulti);
+}
+
+.row:first-child > .col:nth-child(3) > div:first-child {
+    background-color: var(--blueMulti);
+}
+
+.row:first-child > .col:nth-child(4) > div:first-child {
+    background-color: var(--yellowMulti);
+}
+
+.row:first-child > .col:nth-child(5) > div:first-child {
+    background-color: var(--orangeMulti);;
+}
+
+.row:first-child > .col:nth-child(6) > div:first-child {
+    background-color: var(--redMulti);
+}
+
 
 
