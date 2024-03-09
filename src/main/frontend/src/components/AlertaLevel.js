@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 
-function AlertaLevel() {
+function AlertaLevel({page, setPage}) {
     const [selectedOptions, setselectedOptions] = useState({});
 
     const [tableNames] = useState(['Comando Nacional', 'Comando Regional Norte', 'Comando Regional Centro', 'Comando Regional Lisboa e Vale do Tejo', 'Comando Regional Alentejo', 'Comando Regional Algarve']);
-    const columns = ['Verde', 'Azul', 'Amarelo', 'Laranja', 'Vermelho'];
+    const columns = ['', 'Verde', 'Azul', 'Amarelo', 'Laranja', 'Vermelho'];
     const tableData = [
         { lines: ['CNEPC'] },
         { lines: ['CREPC Norte', 'CSREPC AM Porto (Porto)', 'CSREPC Alto Minho (V. Castelo)', 'CSREPC Alto Tâmega', 'CSREPC Ave', 'CSREPC Cávado (Braga)', 'CSREPC Douro (Vila Real)', 'CSREPC Tâmega e Sousa', 'CSREPC Trás-os-Montes (Bragança)'] },
@@ -34,6 +34,8 @@ function AlertaLevel() {
         event.preventDefault();
         console.log("Selected Options:", selectedOptions); // Log selected options
         // Perform any further actions here, like saving to the state or sending to the server
+        /* Check if everythings filled out etc. */
+        setPage('2');
     };
 
 
@@ -42,14 +44,16 @@ function AlertaLevel() {
             const lines = tableData[index].lines.map((lineName, lineIndex) => {
                 const lineColumns = columns.map((columnName, columnIndex) => (
                     <div key={columnName} className="col">
-                        {columnIndex === 0 && <div>{lineName}</div>}
-                        <Form.Check
-                            type="radio"
-                            name={`${tableName}-${lineName}`}
-                            value={columnName}
-                            checked={selectedOptions[tableName]?.[lineName]?.[columnName] === columnName}
-                            onChange={(e) => handleOptionChange(e, tableName, lineName, columnName)}
-                        />
+                        {columnIndex === 0 ? (
+                            <div>{lineName}</div>
+                        ) : (
+                            <Form.Check
+                                type="radio"
+                                name={`${tableName}-${lineName}`}
+                                value={columnName}
+                                checked={selectedOptions[tableName]?.[lineName]?.[columnName] === columnName}
+                                onChange={(e) => handleOptionChange(e, tableName, lineName, columnName)}
+                            />)}
                     </div>
                 ));
                 return (

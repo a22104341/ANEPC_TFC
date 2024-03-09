@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 
-function AlertaLevel() {
+function AlertaLevel_TEST({setPage}) {
     const [selectedOptions, setselectedOptions] = useState({});
 
     const [tableNames] = useState(['Comando Nacional', 'Comando Regional Norte', 'Comando Regional Centro', 'Comando Regional Lisboa e Vale do Tejo', 'Comando Regional Alentejo', 'Comando Regional Algarve']);
@@ -34,6 +34,8 @@ function AlertaLevel() {
         event.preventDefault();
         console.log("Selected Options:", selectedOptions); // Log selected options
         // Perform any further actions here, like saving to the state or sending to the server
+        /* Check if everythings filled out etc. */
+        setPage('2');
     };
 
 
@@ -45,13 +47,13 @@ function AlertaLevel() {
                         {columnIndex === 0 ? (
                             <div>{lineName}</div>
                         ) : (
-                        <Form.Check
-                            type="radio"
-                            name={`${tableName}-${lineName}`}
-                            value={columnName}
-                            checked={selectedOptions[tableName]?.[lineName]?.[columnName] === columnName}
-                            onChange={(e) => handleOptionChange(e, tableName, lineName, columnName)}
-                        />)}
+                            <Form.Check
+                                type="radio"
+                                name={`${tableName}-${lineName}`}
+                                value={columnName}
+                                checked={selectedOptions[tableName]?.[lineName]?.[columnName] === columnName}
+                                onChange={(e) => handleOptionChange(e, tableName, lineName, columnName)}
+                            />)}
                     </div>
                 ));
                 return (
@@ -90,4 +92,4 @@ function AlertaLevel() {
     );
 }
 
-export default AlertaLevel;
+export default AlertaLevel_TEST;

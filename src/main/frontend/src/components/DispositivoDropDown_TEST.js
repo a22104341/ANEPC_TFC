@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Form} from 'react-bootstrap';
 
-function DispositivoDropDown_TEST() {
+function DispositivoDropDown_TEST({setPage}) {
 
     /*
 
@@ -11,12 +11,12 @@ function DispositivoDropDown_TEST() {
 
     const [selectedDispositivo, setSelectedDispositivo] = useState('');
     const [selectedEvent, setSelectedEvent] = useState('');
-    const [otherInput, setOtherInput] = useState(''); // Other
+    const [otherInput, setOtherInput] = useState(''); // Other in multipleChoice
     const [selectedConditions, setSelectedConditions] = useState([]); // MultipleChoice
     const [selectedEAE, setselectedEAE] = useState([]); // EAE
 
-    const [multiOtherInput, setMultiOtherInput] = useState(''); // MultipleChoice "Other"
-    const [isOtherChecked, setIsOtherChecked] = useState(false); // Initial state for isOtherChecked
+    const [multiOtherInput, setMultiOtherInput] = useState('');
+    const [isOtherChecked, setIsOtherChecked] = useState(false);
 
     const [showEventType, setShowEventType] = useState(false); // Initial state for eventType
     const [showOther, setShowOther] = useState(false); // Initial state for other
@@ -79,8 +79,8 @@ function DispositivoDropDown_TEST() {
     //save stuff on submit
     const handleSubmit = (event) => {
         event.preventDefault();
-
         // Handle form submission here
+
         let formData = {
             selectedDispositivo,
             selectedEvent
@@ -99,11 +99,14 @@ function DispositivoDropDown_TEST() {
                 otherInput
             }
         }
+
+        // Check if everything is filled out, if yes setPage to 1
+        setPage('1');
         console.log(formData); // Example: You can send this data to an API or save it to the state
     };
 
     return (
-        <Form id="form_Page1" onSubmit={handleSubmit}>
+        <Form id="form_DispositivoDropDown" onSubmit={handleSubmit}>
             <Form.Group controlId="formDispositivo">
                 <Form.Label>Select an option</Form.Label>
                 <Form.Control as="select" onChange={handleDropdownChange_dispositivo}>
@@ -133,7 +136,7 @@ function DispositivoDropDown_TEST() {
                     <Form.Control
                         type="text"
                         placeholder="Enter your input here"
-                        value={otherInput}
+                        value={otherInput} // Assuming you have a state for this
                         onChange={(e) => setOtherInput(e.target.value)}
                     />
                 </Form.Group>
@@ -185,9 +188,9 @@ function DispositivoDropDown_TEST() {
                 </Form.Group>
             </div>}
 
-            <button type="submit">Submit</button>
+            <button type="submit">Next Page</button>
+            {console.log("CTO Form loaded")}
         </Form>
-
     );
 }
 

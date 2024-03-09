@@ -1,0 +1,5 @@
+/* Make it so the stuff inside the container occupies the whole page */
+.container{
+    display: flex;
+    width: 100%;
+}

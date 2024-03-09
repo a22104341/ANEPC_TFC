@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>homepage</title>
+  <link rel="stylesheet" type="text/css" th:href="@{../springBootStyles.css}" />
 </head>
 <body>
 
@@ -14,7 +15,7 @@
   <div id ="navBar"></div>
 
   <p>CTO Form page</p>
-  <div id="dispositivo"></div>
+  <div id="ctoForm"></div>
 
   <!--<div th:replace="~{ctoForm/ctoForm_Page1 :: ctoForm_Page1}"></div>-->
   <!-- Add a dropdown with all the options -->
@@ -41,8 +42,8 @@
   const NavBarRoot = createRoot(document.getElementById('navBar'));
   NavBarRoot.render(React.createElement(components.NavBar, { dynamicText: "Criar CTO" }));
 
-  const DispositivoDropDownRoot = createRoot(document.getElementById('dispositivo'));
-  DispositivoDropDownRoot.render(React.createElement(components.DispositivoDropDown));
+  const CtoFormRoot = createRoot(document.getElementById('ctoForm'));
+  CtoFormRoot.render(React.createElement(components.CtoForm));
 </script>
 
 </body>

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Form} from 'react-bootstrap';
 
-function DispositivoDropDown() {
+function DispositivoDropDown({setPage}) {
 
     /*
 
@@ -99,6 +99,9 @@ function DispositivoDropDown() {
                 otherInput
             }
         }
+
+        // Check if everything is filled out, if yes setPage to 1
+        setPage('1');
         console.log(formData); // Example: You can send this data to an API or save it to the state
     };
 
@@ -188,7 +191,6 @@ function DispositivoDropDown() {
             <button type="submit">Next Page</button>
             {console.log("CTO Form loaded")}
         </Form>
-
     );
 }
 
