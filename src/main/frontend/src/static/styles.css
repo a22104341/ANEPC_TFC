@@ -192,6 +192,7 @@
 /* Center everything except 1st position */
 .col:not(:first-child) {
     display: flex;
+    align-items: center;
     justify-content: center;
 }
 
