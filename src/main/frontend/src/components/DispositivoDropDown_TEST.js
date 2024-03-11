@@ -106,7 +106,7 @@ function DispositivoDropDown_TEST({setPage}) {
     };
 
     return (
-        <Form id="form_DispositivoDropDown" onSubmit={handleSubmit}>
+        <div id="form_DispositivoDropDown">
             <Form.Group controlId="formDispositivo">
                 <Form.Label>Select an option</Form.Label>
                 <Form.Control as="select" onChange={handleDropdownChange_dispositivo}>
@@ -188,9 +188,9 @@ function DispositivoDropDown_TEST({setPage}) {
                 </Form.Group>
             </div>}
 
-            <button type="submit">Next Page</button>
+            <button type="submit" onSubmit={handleSubmit}>Next Page</button>
             {console.log("CTO Form loaded")}
-        </Form>
+        </div>
     );
 }
 

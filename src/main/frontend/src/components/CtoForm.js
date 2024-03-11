@@ -10,6 +10,10 @@ function CtoForm() {
         setPage(newPage);
     };
 
+    const handleSubmit = (event) => {
+        console.log("Submit");
+    }
+
     return (
         <Form id="form_AlertaLevels">
             { page === '0' &&
@@ -18,6 +22,7 @@ function CtoForm() {
             {page === '1' &&
                 <AlertaLevel_TEST page={page} onPageChange={handlePage}/>
             }
+            <button type="submit" onSubmit={handleSubmit}>Submit</button>
             {console.log("CtoForm rendered")}
         </Form>
     );

@@ -84,11 +84,11 @@ function AlertaLevel_TEST({setPage}) {
     };
 
     return (
-        <Form id="form_AlertaLevels" onSubmit={handleSubmit}>
+        <div id="form_AlertaLevels" >
             {generateForm(tableNames, tableData, columns)}
-            <button type="submit">Next Page</button>
+            <button type="submit" onSubmit={handleSubmit}>Next Page</button>
             {console.log("AlertaLevels rendered")}
-        </Form>
+        </div>
     );
 }
 
