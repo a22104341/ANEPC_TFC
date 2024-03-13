@@ -196,7 +196,9 @@
     justify-content: center;
 }
 
-
+.row{
+    margin:0;
+}
 
 
 

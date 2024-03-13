@@ -10,19 +10,20 @@ function CtoForm() {
         setPage(newPage);
     };
 
-    const handleSubmit = (event) => {
+    const handleClick = (event) => {
+        setPage('??');
         console.log("Submit");
     }
 
     return (
         <Form id="form_AlertaLevels">
             { page === '0' &&
-                <DispositivoDropDown_TEST page={page} onPageChange={handlePage} />
+                <DispositivoDropDown_TEST page={page} handleClick={handleClick} />
             }
-            {page === '1' &&
-                <AlertaLevel_TEST page={page} onPageChange={handlePage}/>
+            { page === '1' &&
+                <AlertaLevel_TEST page={page} handleClick={handleClick}/>
             }
-            <button type="submit" onSubmit={handleSubmit}>Submit</button>
+            {/*<button type="submit" onSubmit={handleSubmit}>Submit</button> */}
             {console.log("CtoForm rendered")}
         </Form>
     );

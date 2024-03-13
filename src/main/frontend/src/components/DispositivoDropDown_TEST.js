@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Form} from 'react-bootstrap';
 
-function DispositivoDropDown_TEST({setPage}) {
+function DispositivoDropDown_TEST({page, handleClick}) {
 
     /*
 
@@ -77,7 +77,7 @@ function DispositivoDropDown_TEST({setPage}) {
 
 
     //save stuff on submit
-    const handleSubmit = (event) => {
+    const handlePageChange = (event) => {
         event.preventDefault();
         // Handle form submission here
 
@@ -101,7 +101,7 @@ function DispositivoDropDown_TEST({setPage}) {
         }
 
         // Check if everything is filled out, if yes setPage to 1
-        setPage('1');
+        handleClick('1');
         console.log(formData); // Example: You can send this data to an API or save it to the state
     };
 
@@ -188,7 +188,7 @@ function DispositivoDropDown_TEST({setPage}) {
                 </Form.Group>
             </div>}
 
-            <button type="submit" onSubmit={handleSubmit}>Next Page</button>
+            <button onClick={handlePageChange}>Next Page</button>
             {console.log("CTO Form loaded")}
         </div>
     );

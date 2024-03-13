@@ -49,7 +49,7 @@ function NavBar({dynamicText}) {
             <div className="topSection">
                 <div className="nav-logo">
                     <Navbar.Brand>
-                        <img src="../static/anepc_logo_with_name.jpg" alt="Your Logo"/>
+                        <img src="../../public/images/anepc_logo_with_name.jpg" alt="Your Logo"/>
                     </Navbar.Brand>
                 </div>
                 {isLoginPage &&
