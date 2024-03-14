@@ -1,34 +1,57 @@
-import React, { useState } from 'react';
-import { Form } from 'react-bootstrap';
+import React, {useState} from 'react';
+import {Form} from 'react-bootstrap';
 
 function AlertaLevel_TEST({page, handleClick}) {
-    const [selectedOptions, setselectedOptions] = useState({});
+    const [selectedOptions, setSelectedOptions] = useState({});
 
     const [tableNames] = useState(['Comando Nacional', 'Comando Regional Norte', 'Comando Regional Centro', 'Comando Regional Lisboa e Vale do Tejo', 'Comando Regional Alentejo', 'Comando Regional Algarve']);
-    const columns = ['', 'Verde', 'Azul', 'Amarelo', 'Laranja', 'Vermelho'];
+    const columns = ['', 'Verde', 'Azul', 'Amarelo', 'Laranja', 'Vermelho', 'Não Aplicável'];
     const tableData = [
-        { lines: ['CNEPC'] },
-        { lines: ['CREPC Norte', 'CSREPC AM Porto (Porto)', 'CSREPC Alto Minho (V. Castelo)', 'CSREPC Alto Tâmega', 'CSREPC Ave', 'CSREPC Cávado (Braga)', 'CSREPC Douro (Vila Real)', 'CSREPC Tâmega e Sousa', 'CSREPC Trás-os-Montes (Bragança)'] },
-        { lines: ['CREPC Centro', 'CSREPC Beira Baixa (C. Branco)', 'CSREPC Beiras e Serra da Estrela (Guarda)', 'CSREPC Viseu, Dão e Lafões (Viseu)', 'CSREPC Região de Aveiro (Aveiro)', 'CSREPC Região de Coimbra (Coimbra)', 'CSREPC Região de Leiria (Leiria)'] },
-        { lines: ['CREPC LVT', 'CSREPC Grande Lisboa (Lisboa)', 'CSREPC Lezíria do Tejo (Santarém)', 'CSREPC Médio Tejo', 'CSREPC Oeste', 'CSREPC Península de Setúbal (Setúbal)'] },
-        { lines: ['CREPC Alentejo', 'CSREPC Alentejo Central (Évora)', 'CSREPC Alentejo Litoral', 'CSREPC Alto Alentejo (Portalegre)', 'CSREPC Baixo Alentejo (Beja)'] },
-        { lines: ['CREPC Algarve', 'CSREPC Algarve'] }
+        {lines: ['CNEPC']},
+        {lines: ['CREPC Norte', 'CSREPC AM Porto (Porto)', 'CSREPC Alto Minho (V. Castelo)', 'CSREPC Alto Tâmega', 'CSREPC Ave', 'CSREPC Cávado (Braga)', 'CSREPC Douro (Vila Real)', 'CSREPC Tâmega e Sousa', 'CSREPC Trás-os-Montes (Bragança)']},
+        {lines: ['CREPC Centro', 'CSREPC Beira Baixa (C. Branco)', 'CSREPC Beiras e Serra da Estrela (Guarda)', 'CSREPC Viseu, Dão e Lafões (Viseu)', 'CSREPC Região de Aveiro (Aveiro)', 'CSREPC Região de Coimbra (Coimbra)', 'CSREPC Região de Leiria (Leiria)']},
+        {lines: ['CREPC LVT', 'CSREPC Grande Lisboa (Lisboa)', 'CSREPC Lezíria do Tejo (Santarém)', 'CSREPC Médio Tejo', 'CSREPC Oeste', 'CSREPC Península de Setúbal (Setúbal)']},
+        {lines: ['CREPC Alentejo', 'CSREPC Alentejo Central (Évora)', 'CSREPC Alentejo Litoral', 'CSREPC Alto Alentejo (Portalegre)', 'CSREPC Baixo Alentejo (Beja)']},
+        {lines: ['CREPC Algarve', 'CSREPC Algarve']}
         // Add more table data as needed
     ];
 
 
-    const handleOptionChange = (event, tableName, lineName, columnName) => {
-        const { value } = event.target;
-        setselectedOptions(prevState => ({
-            ...prevState,
-            [tableName]: {
-                ...prevState[tableName],
-                [lineName]: {
-                    [columnName]: value
+    const handleOptionChange = (e, tableName, lineName, columnName) => {
+        const { checked, value } = e.target;
+
+        // If it's a radio button from the first row
+        if (lineName === columns[0]) {
+            // Iterate over all lines and set the selected option for the clicked column
+            tableData.forEach(table => {
+                table.lines.forEach(line => {
+                    setSelectedOptions(prevState => ({
+                        ...prevState,
+                        [tableName]: {
+                            ...prevState[tableName],
+                            [line]: {
+                                ...prevState[tableName]?.[line],
+                                [columnName]: checked ? value : null
+                            }
+                        }
+                    }));
+                });
+            });
+        } else {
+            // Otherwise, handle as usual
+            setSelectedOptions(prevState => ({
+                ...prevState,
+                [tableName]: {
+                    ...prevState[tableName],
+                    [lineName]: {
+                        ...prevState[tableName]?.[lineName],
+                        [columnName]: checked ? value : null
+                    }
                 }
-            }
-        }));
+            }));
+        }
     };
+
 
     const handlePageChange = (event) => {
         event.preventDefault();
@@ -67,9 +90,12 @@ function AlertaLevel_TEST({page, handleClick}) {
             const columnHeaders = (
                 <div className="row">
                     {columns.map(columnName => (
-                        <div key={columnName} className="col">
-                            <div>{columnName}</div>
-                        </div>
+                        (index === 0 && columnName === 'Não Aplicável') ? null
+                            : (
+                                <div key={columnName} className="col">
+                                    <div>{columnName}</div>
+                                </div>
+                            )
                     ))}
                 </div>
             );
@@ -86,7 +112,7 @@ function AlertaLevel_TEST({page, handleClick}) {
     };
 
     return (
-        <div id="form_AlertaLevels" >
+        <div id="form_AlertaLevels">
             {generateForm(tableNames, tableData, columns)}
             <button onClick={handlePageChange}>Next Page</button>
             {console.log("AlertaLevels rendered")}
