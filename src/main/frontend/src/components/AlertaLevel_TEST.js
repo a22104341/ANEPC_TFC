@@ -17,39 +17,17 @@ function AlertaLevel_TEST({page, handleClick}) {
     ];
 
 
-    const handleOptionChange = (e, tableName, lineName, columnName) => {
-        const { checked, value } = e.target;
-
-        // If it's a radio button from the first row
-        if (lineName === columns[0]) {
-            // Iterate over all lines and set the selected option for the clicked column
-            tableData.forEach(table => {
-                table.lines.forEach(line => {
-                    setSelectedOptions(prevState => ({
-                        ...prevState,
-                        [tableName]: {
-                            ...prevState[tableName],
-                            [line]: {
-                                ...prevState[tableName]?.[line],
-                                [columnName]: checked ? value : null
-                            }
-                        }
-                    }));
-                });
-            });
-        } else {
-            // Otherwise, handle as usual
-            setSelectedOptions(prevState => ({
-                ...prevState,
-                [tableName]: {
-                    ...prevState[tableName],
-                    [lineName]: {
-                        ...prevState[tableName]?.[lineName],
-                        [columnName]: checked ? value : null
-                    }
+    const handleOptionChange = (event, tableName, lineName, columnName) => {
+        const { value } = event.target;
+        setSelectedOptions(prevState => ({
+            ...prevState,
+            [tableName]: {
+                ...prevState[tableName],
+                [lineName]: {
+                    [columnName]: value
                 }
-            }));
-        }
+            }
+        }));
     };
 
 
