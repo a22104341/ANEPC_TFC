@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 
-function AlertaLevel_TEST({setPage}) {
+function AlertaLevel_TEST({page, handleClick}) {
     const [selectedOptions, setselectedOptions] = useState({});
 
     const [tableNames] = useState(['Comando Nacional', 'Comando Regional Norte', 'Comando Regional Centro', 'Comando Regional Lisboa e Vale do Tejo', 'Comando Regional Alentejo', 'Comando Regional Algarve']);
@@ -30,12 +30,14 @@ function AlertaLevel_TEST({setPage}) {
         }));
     };
 
-    const handleSubmit = (event) => {
+    const handlePageChange = (event) => {
         event.preventDefault();
         console.log("Selected Options:", selectedOptions); // Log selected options
         // Perform any further actions here, like saving to the state or sending to the server
+
+
         /* Check if everythings filled out etc. */
-        setPage('2');
+        handleClick('2');
     };
 
 
@@ -86,7 +88,7 @@ function AlertaLevel_TEST({setPage}) {
     return (
         <div id="form_AlertaLevels" >
             {generateForm(tableNames, tableData, columns)}
-            <button type="submit" onSubmit={handleSubmit}>Next Page</button>
+            <button onClick={handlePageChange}>Next Page</button>
             {console.log("AlertaLevels rendered")}
         </div>
     );

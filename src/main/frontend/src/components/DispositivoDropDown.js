@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Form} from 'react-bootstrap';
 
-function DispositivoDropDown({setPage}) {
+function DispositivoDropDown({page, handleClick}) {
 
     /*
 
@@ -77,36 +77,49 @@ function DispositivoDropDown({setPage}) {
 
 
     //save stuff on submit
-    const handleSubmit = (event) => {
+    const handlePageChange = (event) => {
         event.preventDefault();
         // Handle form submission here
-
         let formData = {
-            selectedDispositivo,
-            selectedEvent
-        };
-
-        if (selectedEvent === 'MeteorologiaAdversa') {
+            selectedDispositivo
+        }
+        if (selectedDispositivo !== 'DECIR'){
             formData = {
                 ...formData,
-                //Check if Other was checked and save its input into the array
-                selectedConditions: isOtherChecked ? [...selectedConditions, multiOtherInput] : selectedConditions,
+                selectedEvent
+            };
+            if (selectedEvent === 'MeteorologiaAdversa') {
+                formData = {
+                    ...formData,
+                    //Check if Other was checked and save its input into the array
+                    selectedConditions: isOtherChecked ? [...selectedConditions, multiOtherInput] : selectedConditions,
+                    selectedEAE
+                }
+            } else {
+                formData = {
+                    ...formData,
+                    otherInput
+                }
+            }
+        }else {
+            formData = {
+                ...formData,
                 selectedEAE
-            }
-        } else {
-            formData = {
-                ...formData,
-                otherInput
-            }
+            };
         }
 
+
+
+
         // Check if everything is filled out, if yes setPage to 1
-        setPage('1');
+        handleClick('1');
+
         console.log(formData); // Example: You can send this data to an API or save it to the state
+        console.log("dispositivo = " + page);
     };
 
     return (
-        <Form id="form_DispositivoDropDown" onSubmit={handleSubmit}>
+        <div id="form_DispositivoDropDown">
             <Form.Group controlId="formDispositivo">
                 <Form.Label>Select an option</Form.Label>
                 <Form.Control as="select" onChange={handleDropdownChange_dispositivo}>
@@ -188,9 +201,9 @@ function DispositivoDropDown({setPage}) {
                 </Form.Group>
             </div>}
 
-            <button type="submit">Next Page</button>
+            <button onClick={handlePageChange}>Next Page</button>
             {console.log("CTO Form loaded")}
-        </Form>
+        </div>
     );
 }
 

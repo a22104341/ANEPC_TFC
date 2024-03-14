@@ -6,13 +6,8 @@ import AlertaLevel_TEST from './AlertaLevel_TEST';
 function CtoForm() {
     const [page, setPage] = useState('0');
 
-    const handlePage = (newPage) => {
-        setPage(newPage);
-    };
-
     const handleClick = (event) => {
-        setPage('??');
-        console.log("Submit");
+        setPage(event);
     }
 
     return (

@@ -80,29 +80,42 @@ function DispositivoDropDown_TEST({page, handleClick}) {
     const handlePageChange = (event) => {
         event.preventDefault();
         // Handle form submission here
-
         let formData = {
-            selectedDispositivo,
-            selectedEvent
-        };
-
-        if (selectedEvent === 'MeteorologiaAdversa') {
-            formData = {
-                ...formData,
-                //Check if Other was checked and save its input into the array
-                selectedConditions: isOtherChecked ? [...selectedConditions, multiOtherInput] : selectedConditions,
-                selectedEAE
-            }
-        } else {
-            formData = {
-                ...formData,
-                otherInput
-            }
+            selectedDispositivo
         }
+        if (selectedDispositivo !== 'DECIR'){
+            formData = {
+                ...formData,
+                selectedEvent
+            };
+            if (selectedEvent === 'MeteorologiaAdversa') {
+                formData = {
+                    ...formData,
+                    //Check if Other was checked and save its input into the array
+                    selectedConditions: isOtherChecked ? [...selectedConditions, multiOtherInput] : selectedConditions,
+                    selectedEAE
+                }
+            } else {
+                formData = {
+                    ...formData,
+                    otherInput
+                }
+            }
+        }else {
+            formData = {
+                ...formData,
+                selectedEAE
+            };
+        }
+
+
+
 
         // Check if everything is filled out, if yes setPage to 1
         handleClick('1');
+
         console.log(formData); // Example: You can send this data to an API or save it to the state
+        console.log("dispositivo = " + page);
     };
 
     return (
