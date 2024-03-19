@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Form} from 'react-bootstrap';
 
 function AlertaLevel({page, handleClick}) {
-    const [selectedOptions, setselectedOptions] = useState({});
+    const [selectedOptions, setSelectedOptions] = useState({});
 
     const [tableNames] = useState(['Comando Nacional', 'Comando Regional Norte', 'Comando Regional Centro', 'Comando Regional Lisboa e Vale do Tejo', 'Comando Regional Alentejo', 'Comando Regional Algarve']);
     const columns = ['', 'Verde', 'Azul', 'Amarelo', 'Laranja', 'Vermelho', 'Não Aplicável'];
@@ -19,7 +19,7 @@ function AlertaLevel({page, handleClick}) {
 
     const handleOptionChange = (event, tableName, lineName, columnName) => {
         const {value} = event.target;
-        setselectedOptions(prevState => ({
+        setSelectedOptions(prevState => ({
             ...prevState,
             [tableName]: {
                 ...prevState[tableName],
@@ -30,6 +30,7 @@ function AlertaLevel({page, handleClick}) {
         }));
     };
 
+
     const handlePageChange = (event) => {
         event.preventDefault();
         console.log("Selected Options:", selectedOptions); // Log selected options
@@ -39,26 +40,35 @@ function AlertaLevel({page, handleClick}) {
         /* Check if everythings filled out etc. */
         handleClick('2');
     };
-
+    const handleGoBackPage = (event) => {
+        event.preventDefault();
+        handleClick('0');
+    }
 
     const generateForm = (tableNames, tableData, columns) => {
         return tableNames.map((tableName, index) => {
             const lines = tableData[index].lines.map((lineName, lineIndex) => {
                 const lineColumns = columns.map((columnName, columnIndex) => (
-                    <div key={columnName} className="col">
-                        {columnIndex === 0 ? (
-                            <div>{lineName}</div>
-                        ) : (
-                            <Form.Check
-                                type="radio"
-                                name={`${tableName}-${lineName}`}
-                                value={columnName}
-                                checked={selectedOptions[tableName]?.[lineName]?.[columnName] === columnName}
-                                onChange={(e) => handleOptionChange(e, tableName, lineName, columnName)}
-                            />)}
-                    </div>
+                    /* Create the ALL columns  */
+                    (index === 0 && columnIndex === columns.length - 1) ? null : ( /* Remove the last column */
+                        <div key={columnName} className="col">
+                            {columnIndex === 0 ? (
+                                <div>{lineName}</div>
+                            ) : (
+                                /* Create radiobuttons */
+                                <Form.Check
+                                    type="radio"
+                                    name={`${tableName}-${lineName}`}
+                                    value={columnName}
+                                    checked={selectedOptions[tableName]?.[lineName]?.[columnName] === columnName}
+                                    onChange={(e) => handleOptionChange(e, tableName, lineName, columnName)}
+                                />
+                            )}
+                        </div>
+                    )
                 ));
                 return (
+                    /* Creates the lines (under the ColorNames etc.) */
                     <div key={String(lineName)} className="row">
                         {lineColumns}
                     </div>
@@ -66,7 +76,8 @@ function AlertaLevel({page, handleClick}) {
             });
             const columnHeaders = (
                 <div className="row">
-                    {columns.map(columnName => (
+                    {columns.map((columnName, columnIndex) => (
+                        /* Creates the Line with the colornames */
                         (index === 0 && columnName === 'Não Aplicável') ? null
                             : (
                                 <div key={columnName} className="col">
@@ -91,7 +102,8 @@ function AlertaLevel({page, handleClick}) {
     return (
         <div id="form_AlertaLevels">
             {generateForm(tableNames, tableData, columns)}
-            <button onClick={handlePageChange}>Next Page</button>
+            <button onClick={handleGoBackPage}>Página anterior</button>
+            <button onClick={handlePageChange}>Próxima Pagina</button>
             {console.log("AlertaLevels rendered")}
         </div>
     );

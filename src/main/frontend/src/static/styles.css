@@ -200,5 +200,12 @@
     margin:0;
 }
 
+.form-check-input[type=radio]{
+    border-color: pink;
+}
+
+.button, input, optgroup, select, textarea {
+
+}
 
 

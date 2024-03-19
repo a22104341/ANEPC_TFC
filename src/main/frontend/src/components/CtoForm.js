@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
-import DispositivoDropDown_TEST from './DispositivoDropDown';
-import AlertaLevel_TEST from './AlertaLevel';
+import DispositivoDropDown_TEST from './DispositivoDropDown_TEST';
+import AlertaLevel_TEST from './AlertaLevel_TEST';
 
 import DispositivoDropDown from './DispositivoDropDown';
 import AlertaLevel from './AlertaLevel';
@@ -16,7 +16,7 @@ function CtoForm() {
     return (
         <Form id="form_AlertaLevels">
             { page === '0' &&
-                <DispositivoDropDown page={page} handleClick={handleClick} />
+                <DispositivoDropDown_TEST page={page} handleClick={handleClick} />
             }
             { page === '1' &&
                 <AlertaLevel_TEST page={page} handleClick={handleClick}/>
